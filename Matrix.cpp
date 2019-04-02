@@ -1,5 +1,6 @@
 #include <Matrix.hpp>
 #include <iostream>
+typedef long double ld;
 Matrix::Matrix(int h, int w) : h(h), w(w){}
 Matrix::Matrix():Matrix(0,0){}
 Matrix& Matrix::operator=(const Matrix &mat){

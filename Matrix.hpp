@@ -1,6 +1,6 @@
 #pragma once
+typedef long double ld;
 class Matrix{
-    typedef long double ld;
 
   public:
     int h, w, size = 100;
@@ -69,7 +69,6 @@ inline Matrix operator*(const Matrix &a, const Matrix &b){
 Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);
 
 class Vec3{
-    typedef long double ld;
 
   public:
     ld x, y, z;
