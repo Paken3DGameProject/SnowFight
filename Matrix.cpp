@@ -1,3 +1,5 @@
+#include<iostream>
+
 #ifndef MATRIX_H
 #define MATRIX_H
 
@@ -19,7 +21,7 @@ public:
 	}
 	ld* operator[](int x) {
 		if (x >= h) {
-			cerr << "Matrix []: not match matrix size" << endl;
+			std::cerr << "Matrix []: not match matrix size" << std::endl;
 		}
 		return dat[x];
 	}
@@ -31,7 +33,7 @@ public:
 	}
 	Matrix& operator+=(const Matrix &mat) {
 		if (h != mat.h || w != mat.w) {
-			cerr << "Matrix +: not match height and width" << endl;
+			std::cerr << "Matrix +: not match height and width" << std::endl;
 		}
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -42,7 +44,7 @@ public:
 	}
 	Matrix& operator-=(const Matrix& mat) {
 		if (h != mat.h || w != mat.w) {
-			cerr << "Matrix -: not match height and width" << endl;
+			std::cerr << "Matrix -: not match height and width" << std::endl;
 		}
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -61,7 +63,7 @@ public:
 	}
 	Matrix& operator/=(const ld& x) {
 		if (x == 0) {
-			cerr << "Matrix /: can't divide by zero" << endl;
+			std::cerr << "Matrix /: can't divide by zero" << std::endl;
 		}
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {
@@ -73,7 +75,7 @@ public:
 	Matrix& operator%=(const long long x) {
 		//floor and take remainder
 		if (x == 0) {
-			cerr << "Matrix %: can't divide by zero" << endl;
+			std::cerr << "Matrix %%: can't divide by zero" << std::endl;
 		}
 		for (int i = 0; i < h; i++) {
 			for (int j = 0; j < w; j++) {

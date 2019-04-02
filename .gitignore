@@ -1,0 +1,13 @@
+# VS Item
+
+.vscode/
+.vs/
+
+# Build Item
+
+*.dll
+*.exe
+*.lib
+
+bin/
+obj/
