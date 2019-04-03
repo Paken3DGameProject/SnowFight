@@ -9,5 +9,7 @@
 *.exe
 *.lib
 
+build/
+workspace/
 bin/
 obj/
