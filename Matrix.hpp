@@ -1,69 +1,47 @@
 #pragma once
-typedef long double ld;
-class Matrix{
 
+//
+// これは行列を表すClassです
+//
+class Matrix{
   public:
-    int h, w, size = 100;
-    //height, width, size of matrix
-    ld dat[100][100];
-    Matrix(int h, int w);
+	// 行列の高さ
+	int height;
+	// 行列の横幅
+	int width;
+	
+    // この値以上の高さ、横幅は指定できません
+	static const int MAX_MATRIX_SIZE = 4;
+
+	// 行列の実データ([高さ][横幅])
+    long double dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
+
+    Matrix(int height, int width);
     Matrix();
+
     Matrix &operator=(const Matrix &mat);
-    ld *operator[](int x);
-    Matrix operator+();
-    Matrix operator-();
+	Matrix operator+();
+	Matrix operator-();
     Matrix &operator+=(const Matrix &mat);
     Matrix &operator-=(const Matrix &mat);
-    Matrix &operator*=(const ld &x);
-    Matrix &operator/=(const ld &x);
-    Matrix &operator%=(const long long x);
+    Matrix &operator*=(const long double &x);
+    Matrix &operator/=(const long double &x);
+    Matrix &operator%=(const long long &x);
+    bool operator==(const Matrix &mat);
+    bool operator!=(const Matrix &mat);
+
+    // 高さと横幅が同じとき単位行列にします
     void identity();
+    // 全ての要素をゼロにします
     void initialize();
-    bool operator==(Matrix mat);
-    bool operator!=(Matrix mat);
 };
-inline Matrix operator+(const Matrix &a, const Matrix &b){
-    Matrix c = a;
-    return c += b;
-}
-inline Matrix operator-(const Matrix &a, const Matrix &b){
-    Matrix c = a;
-    return c -= b;
-}
-inline Matrix operator*(const Matrix &a, const long double &b){
-    Matrix c = a;
-    return c *= b;
-}
-inline Matrix operator*(const long double &b, const Matrix &a){
-    Matrix c = a;
-    return c *= b;
-}
-inline Matrix operator/(const Matrix &a, const long double &b){
-    Matrix c = a;
-    return c /= b;
-}
-inline Matrix operator/(const long double &b, const Matrix &a){
-    return a / b;
-}
-inline Matrix operator%(const Matrix &a, const long long &b){
-    Matrix c = a;
-    c %= b;
-    return c;
-}
-inline Matrix operator%(const long long &b, const Matrix &a){
-    return a % b;
-}
-inline Matrix operator*(const Matrix &a, const Matrix &b){
-    Matrix c(a.h, b.w);
-    c.initialize();
-    for (int i = 0; i < a.h; i++){
-        for (int j = 0; j < a.w; j++){
-            for (int z = 0; z < b.w; z++){
-                c[i][z] += a.dat[i][j] * b.dat[j][z];
-                c[i][z] = (long long)(c[i][z]) % 1000000007;
-            }
-        }
-    }
-    return c;
-}
+
+inline Matrix operator+(const Matrix& a, const Matrix& b);
+inline Matrix operator-(const Matrix& a, const Matrix& b);
+inline Matrix operator*(const Matrix& a, const long double& b);
+inline Matrix operator/(const Matrix& a, const long double& b);
+inline Matrix operator%(const Matrix& a, const long long& b);
+inline Matrix operator*(const Matrix &a, const Matrix &b);
+
+[[deprecated]]
 Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);
