@@ -21,6 +21,7 @@ public:
 	inline bool operator!=(const Vec3 & vec);
 
 	ld length();
+	//ベクトルを正規化する
 	void normal();
 };
 inline Vec3 operator+(const Vec3& a, const Vec3& b);
@@ -30,9 +31,10 @@ inline Vec3 operator%(const Vec3& a, const Vec3& b);
 
 inline Vec3 operator*(const Vec3& vec, const ld& a);
 inline Vec3 operator/(const Vec3& vec, const ld& a);
-inline Vec3 operator%(const Vec3& vec, const ld& a);
+inline Vec3 operator%(const Vec3& vec, const ll& a);
 inline Vec3 operator*(const ld& a, const Vec3& vec);
 inline Vec3 operator/(const ld& a, const Vec3& vec);
-inline Vec3 operator%(const ld& a, const Vec3& vec);
+inline Vec3 operator%(const ll& a, const Vec3& vec);
 
+//ベクトル2つの間の角度を返す
 ld radian(Vec3& a, Vec3& b);
