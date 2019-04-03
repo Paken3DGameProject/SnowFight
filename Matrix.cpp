@@ -128,5 +128,3 @@ Matrix mod_pow(const Matrix& matrix, long long n, long long Mod) {
 	}
 	return cont;
 }
-Vec3::Vec3(ld x, ld y, ld z) : x(x), y(y), z(z) {}
-Vec3::Vec3():Vec3(0,0,0){}

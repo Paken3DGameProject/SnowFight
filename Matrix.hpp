@@ -67,11 +67,3 @@ inline Matrix operator*(const Matrix &a, const Matrix &b){
     return c;
 }
 Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);
-
-class Vec3{
-
-  public:
-    ld x, y, z;
-    Vec3(ld x, ld y, ld z);
-    Vec3();
-};
