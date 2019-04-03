@@ -6,7 +6,7 @@
 
 using namespace std;
 typedef long long ll;
-typedef long long ld;
+typedef long double ld;
 
 const ll MOD = 1000000007;
 const ld INF = (1e17);
