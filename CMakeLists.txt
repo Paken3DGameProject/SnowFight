@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project(SnowFight CXX)
+add_library(Matrix SHARED Matrix.cpp)
+add_library(Vector3 SHARED Vector3.cpp)
+add_executable(Test main.cpp)
+target_link_libraries(Test Matrix)
+target_link_libraries(Test Vector3)
