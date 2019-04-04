@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Base.hpp"
 
 //
@@ -34,12 +35,39 @@ class Matrix{
     void initialize();
 };
 
-inline Matrix operator+(const Matrix& a, const Matrix& b);
-inline Matrix operator-(const Matrix& a, const Matrix& b);
-inline Matrix operator*(const Matrix& a, const ld& b);
-inline Matrix operator/(const Matrix& a, const ld& b);
-inline Matrix operator%(const Matrix& a, const long long& b);
-inline Matrix operator*(const Matrix &a, const Matrix &b);
+inline Matrix operator+(const Matrix& a, const Matrix& b) {
+	Matrix c = a;
+	return c += b;
+}
+inline Matrix operator-(const Matrix& a, const Matrix& b) {
+	Matrix c = a;
+	return c -= b;
+}
+inline Matrix operator*(const Matrix& a, const ld& b) {
+	Matrix c = a;
+	return c *= b;
+}
+inline Matrix operator/(const Matrix& a, const ld& b) {
+	Matrix c = a;
+	return c /= b;
+}
+inline Matrix operator%(const Matrix& a, const long long& b) {
+	Matrix c = a;
+	c %= b;
+	return c;
+}
+inline Matrix operator*(const Matrix& a, const Matrix& b) {
+	Matrix c(a.height, b.width);
+	c.initialize();
+	for (int i = 0; i < a.height; i++) {
+		for (int j = 0; j < a.width; j++) {
+			for (int z = 0; z < b.width; z++) {
+				c.dat[i][z] += a.dat[i][j] * b.dat[j][z];
+			}
+		}
+	}
+	return c;
+}
 
 [[deprecated]]
 Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);

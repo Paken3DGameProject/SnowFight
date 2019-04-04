@@ -63,7 +63,7 @@ Matrix& Matrix::operator/=(const ld &x) {
 	}
 	return (*this);
 }
-Matrix& Matrix::operator%=(const long long &x) {
+Matrix& Matrix::operator%=(const ll &x) {
 	//floor and take remainder
 	if (x == 0) {
 		std::cerr << "Matrix operator\"%%\": can't divide by zero" << std::endl;
@@ -104,39 +104,6 @@ bool Matrix::operator==(const Matrix &mat) {
 }
 bool Matrix::operator!=(const Matrix &mat) {
 	return !((*this) == mat);
-}
-inline Matrix operator+(const Matrix &a, const Matrix &b){
-    Matrix c = a;
-    return c += b;
-}
-inline Matrix operator-(const Matrix &a, const Matrix &b){
-    Matrix c = a;
-    return c -= b;
-}
-inline Matrix operator*(const Matrix &a, const ld &b){
-    Matrix c = a;
-    return c *= b;
-}
-inline Matrix operator/(const Matrix &a, const ld &b){
-    Matrix c = a;
-    return c /= b;
-}
-inline Matrix operator%(const Matrix &a, const long long &b){
-    Matrix c = a;
-    c %= b;
-    return c;
-}
-inline Matrix operator*(const Matrix &a, const Matrix &b){
-    Matrix c(a.height, b.width);
-    c.initialize();
-    for (int i = 0; i < a.height; i++){
-        for (int j = 0; j < a.width; j++){
-            for (int z = 0; z < b.width; z++){
-                c.dat[i][z] += a.dat[i][j] * b.dat[j][z];
-            }
-        }
-    }
-    return c;
 }
 
 [[deprecated]]
