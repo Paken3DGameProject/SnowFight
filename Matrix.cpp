@@ -3,9 +3,6 @@
 
 #include <iostream>
 
-Matrix::Matrix(int height, int width) : height(height), width(width){}
-Matrix::Matrix():height(0), width(0){}
-
 Matrix& Matrix::operator=(const Matrix &mat){
 	width = mat.width;
 	height = mat.height;
@@ -15,9 +12,6 @@ Matrix& Matrix::operator=(const Matrix &mat){
 		}
 	}
 	return (*this);
-}
-Matrix Matrix::operator+() { 
-	return *this;
 }
 Matrix Matrix::operator-(){
 	Matrix tmp(height, width);
@@ -52,7 +46,7 @@ Matrix& Matrix::operator-=(const Matrix &mat){
 	}
 	return (*this);
 }
-Matrix& Matrix::operator*=(const long double &x){
+Matrix& Matrix::operator*=(const ld &x){
 	for (int i = 0; i < height; i++){
 		for (int j = 0; j < width; j++){
 			dat[i][j] *= x;
@@ -60,7 +54,7 @@ Matrix& Matrix::operator*=(const long double &x){
 	}
 	return (*this);
 }
-Matrix& Matrix::operator/=(const long double &x) {
+Matrix& Matrix::operator/=(const ld &x) {
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
 			if(x == 0) dat[i][j] = dat[i][j] == 0 ? 0 : INF;
@@ -83,11 +77,7 @@ Matrix& Matrix::operator%=(const long long &x) {
 	return (*this);
 }
 void Matrix::identity() {
-	if(height != width){
-		std::cerr << "Matrix identity: \"height\" and \"width\" aren't equal" << std::endl;
-		throw;
-	}
-	for (int i = 0; i < height; i++) {
+	for (int i = 0; i < width; i++) {
 		for (int j = 0; j < width; j++) {
 			if(i == j) dat[i][j] = 1;
 			else dat[i][j] = 0;
@@ -123,11 +113,11 @@ inline Matrix operator-(const Matrix &a, const Matrix &b){
     Matrix c = a;
     return c -= b;
 }
-inline Matrix operator*(const Matrix &a, const long double &b){
+inline Matrix operator*(const Matrix &a, const ld &b){
     Matrix c = a;
     return c *= b;
 }
-inline Matrix operator/(const Matrix &a, const long double &b){
+inline Matrix operator/(const Matrix &a, const ld &b){
     Matrix c = a;
     return c /= b;
 }
@@ -151,7 +141,7 @@ inline Matrix operator*(const Matrix &a, const Matrix &b){
 
 [[deprecated]]
 Matrix mod_pow(const Matrix& matrix, long long n, long long Mod) {
-	Matrix mat = matrix, cont(mat.h, mat.w);
+	Matrix mat = matrix, cont(mat.height, mat.width);
 	cont.identity();
 	while (n > 0) {
 		if (n & 1) {
