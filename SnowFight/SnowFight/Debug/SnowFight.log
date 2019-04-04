@@ -1,5 +1,0 @@
-﻿  Vector3.cpp
-C:\Users\Kengo Shimizu\source\repos\SnowFight\Vector3.cpp(24): warning C4244: '=': 'll' から 'ld' への変換です。データが失われる可能性があります。
-C:\Users\Kengo Shimizu\source\repos\SnowFight\Vector3.cpp(25): warning C4244: '=': 'll' から 'ld' への変換です。データが失われる可能性があります。
-C:\Users\Kengo Shimizu\source\repos\SnowFight\Vector3.cpp(26): warning C4244: '=': 'll' から 'ld' への変換です。データが失われる可能性があります。
-  SnowFight.vcxproj -> C:\Users\Kengo Shimizu\Source\Repos\SnowFight\SnowFight\Debug\SnowFight.exe
