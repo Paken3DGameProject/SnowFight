@@ -3,36 +3,38 @@
 #include "Base.hpp"
 
 //
-// ‚±‚ê‚Ís—ñ‚ğ•\‚·Class‚Å‚·
+// ï¿½ï¿½ï¿½ï¿½Ísï¿½ï¿½ï¿½\ï¿½ï¿½Classï¿½Å‚ï¿½
 //
-class Matrix{
+class Matrix {
   public:
-	// s—ñ‚Ìs”A—ñ”
-	  int height, width;
-	
+	// ï¿½sï¿½ï¿½Ìsï¿½ï¿½ï¿½Aï¿½ï¿½
+	int height, width;
+
 	static const int MAX_MATRIX_SIZE = 4;
 
-	// s—ñ‚Ìƒf[ƒ^([s][—ñ])
-    ld dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
+	// ï¿½sï¿½ï¿½Ìƒfï¿½[ï¿½^([ï¿½s][ï¿½ï¿½])
+	ld dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
 
 	Matrix(int height, int width) : height(height), width(width) {}
 	Matrix() : height(0), width(0) {}
 
-    Matrix &operator=(const Matrix &mat);
-	Matrix operator+() { return (*this); }
+	Matrix& operator=(const Matrix& mat);
+	Matrix operator+() {
+		return (*this);
+	}
 	Matrix operator-();
-    Matrix &operator+=(const Matrix &mat);
-    Matrix &operator-=(const Matrix &mat);
-    Matrix &operator*=(const ld &x);
-    Matrix &operator/=(const ld &x);
-    Matrix &operator%=(const ll &x);
-    bool operator==(const Matrix &mat);
-    bool operator!=(const Matrix &mat);
+	Matrix& operator+=(const Matrix& mat);
+	Matrix& operator-=(const Matrix& mat);
+	Matrix& operator*=(const ld& x);
+	Matrix& operator/=(const ld& x);
+	Matrix& operator%=(const ll& x);
+	bool operator==(const Matrix& mat);
+	bool operator!=(const Matrix& mat);
 
-    // —ñ”*—ñ”‚Ì’PˆÊs—ñ‚É‚·‚é
-    void identity();
-    // ‘S‚Ä‚Ì—v‘f‚ğƒ[ƒ‚É‚·‚é
-    void initialize();
+	// ï¿½ï¿½*ï¿½ñ”‚Ì’Pï¿½Êsï¿½ï¿½É‚ï¿½ï¿½ï¿½
+	void identity();
+	// ï¿½Sï¿½Ä‚Ì—vï¿½fï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
+	void initialize();
 };
 
 inline Matrix operator+(const Matrix& a, const Matrix& b) {
@@ -69,5 +71,4 @@ inline Matrix operator*(const Matrix& a, const Matrix& b) {
 	return c;
 }
 
-[[deprecated]]
-Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);
+[[deprecated]] Matrix mod_pow(const Matrix& matrix, long long n, long long Mod);

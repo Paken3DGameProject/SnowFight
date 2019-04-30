@@ -2,36 +2,39 @@
 #include "Base.hpp"
 
 class Vec3 {
-public:
+  public:
 	ld x, y, z;
-	Vec3(ld x, ld y, ld z) :x(x), y(y), z(z) {}
-	Vec3() :x(0), y(0), z(0) {}
+	Vec3(ld x, ld y, ld z) : x(x), y(y), z(z) {}
+	Vec3() : x(0), y(0), z(0) {}
 
-	Vec3& operator+() { return (*this); };
+	Vec3& operator+() {
+		return (*this);
+	};
 	Vec3& operator-();
 
-	Vec3& operator+=(const Vec3 & vec);
-	Vec3& operator-=(const Vec3 & vec);
+	Vec3& operator+=(const Vec3& vec);
+	Vec3& operator-=(const Vec3& vec);
 
-	Vec3& operator*=(const ld & a);
-	Vec3& operator/=(const ld & a);
-	Vec3& operator%=(const ll & a);
+	Vec3& operator*=(const ld& a);
+	Vec3& operator/=(const ld& a);
+	Vec3& operator%=(const ll& a);
 
-	bool operator==(const Vec3 & vec);
-	bool operator!=(const Vec3 & vec);
+	bool operator==(const Vec3& vec);
+	bool operator!=(const Vec3& vec);
 
 	ld length();
-	//ƒxƒNƒgƒ‹‚ğ³‹K‰»‚·‚é
+	//ï¿½xï¿½Nï¿½gï¿½ï¿½ï¿½ğ³‹Kï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 	void normal();
 };
 
-
 inline Vec3 operator+(const Vec3& a, const Vec3& b) {
-	Vec3 vec = a; vec += b;
+	Vec3 vec = a;
+	vec += b;
 	return vec;
 }
 inline Vec3 operator-(const Vec3& a, const Vec3& b) {
-	Vec3 vec = a; vec -= b;
+	Vec3 vec = a;
+	vec -= b;
 	return vec;
 }
 inline ld operator*(const Vec3& a, const Vec3& b) {
@@ -70,5 +73,5 @@ inline Vec3 operator%(const ll& a, const Vec3& vec) {
 	return vec % a;
 }
 
-//ƒxƒNƒgƒ‹2‚Â‚ÌŠÔ‚ÌŠp“x‚ğ•Ô‚·
+//ï¿½xï¿½Nï¿½gï¿½ï¿½2ï¿½Â‚ÌŠÔ‚ÌŠpï¿½xï¿½ï¿½Ô‚ï¿½
 ld radian(Vec3& a, Vec3& b);
