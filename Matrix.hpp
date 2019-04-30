@@ -3,16 +3,16 @@
 #include "Base.hpp"
 
 //
-// ����͍s���\��Class�ł�
+// これは行列を表すClassです
 //
 class Matrix {
   public:
-	// �s��̍s���A��
+	// 行列の行数、列数
 	int height, width;
 
 	static const int MAX_MATRIX_SIZE = 4;
 
-	// �s��̃f�[�^([�s][��])
+	// 行列のデータ([行][列])
 	ld dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
 
 	Matrix(int height, int width) : height(height), width(width) {}
@@ -31,9 +31,9 @@ class Matrix {
 	bool operator==(const Matrix& mat);
 	bool operator!=(const Matrix& mat);
 
-	// ��*�񐔂̒P�ʍs��ɂ���
+	// 列数*列数の単位行列にする
 	void identity();
-	// �S�Ă̗v�f���[���ɂ���
+	// 全ての要素をゼロにする
 	void initialize();
 };
 
