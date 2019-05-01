@@ -1,47 +1,74 @@
 #pragma once
 
+#include "Base.hpp"
+
 //
-// ‚±‚ê‚Ís—ñ‚ğ•\‚·Class‚Å‚·
+// ã“ã‚Œã¯è¡Œåˆ—ã‚’è¡¨ã™Classã§ã™
 //
-class Matrix{
+class Matrix {
   public:
-	// s—ñ‚Ì‚‚³
-	int height;
-	// s—ñ‚Ì‰¡•
-	int width;
-	
-    // ‚±‚Ì’lˆÈã‚Ì‚‚³A‰¡•‚Íw’è‚Å‚«‚Ü‚¹‚ñ
+	// è¡Œåˆ—ã®è¡Œæ•°ã€åˆ—æ•°
+	int height, width;
+
 	static const int MAX_MATRIX_SIZE = 4;
 
-	// s—ñ‚ÌÀƒf[ƒ^([‚‚³][‰¡•])
-    long double dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
+	// è¡Œåˆ—ã®ãƒ‡ãƒ¼ã‚¿([è¡Œ][åˆ—])
+	ld dat[MAX_MATRIX_SIZE][MAX_MATRIX_SIZE];
 
-    Matrix(int height, int width);
-    Matrix();
+	Matrix(int height, int width) : height(height), width(width) {}
+	Matrix() : height(0), width(0) {}
 
-    Matrix &operator=(const Matrix &mat);
-	Matrix operator+();
+	Matrix& operator=(const Matrix& mat);
+	Matrix operator+() {
+		return (*this);
+	}
 	Matrix operator-();
-    Matrix &operator+=(const Matrix &mat);
-    Matrix &operator-=(const Matrix &mat);
-    Matrix &operator*=(const long double &x);
-    Matrix &operator/=(const long double &x);
-    Matrix &operator%=(const long long &x);
-    bool operator==(const Matrix &mat);
-    bool operator!=(const Matrix &mat);
+	Matrix& operator+=(const Matrix& mat);
+	Matrix& operator-=(const Matrix& mat);
+	Matrix& operator*=(const ld& x);
+	Matrix& operator/=(const ld& x);
+	Matrix& operator%=(const ll& x);
+	bool operator==(const Matrix& mat);
+	bool operator!=(const Matrix& mat);
 
-    // ‚‚³‚Æ‰¡•‚ª“¯‚¶‚Æ‚«’PˆÊs—ñ‚É‚µ‚Ü‚·
-    void identity();
-    // ‘S‚Ä‚Ì—v‘f‚ğƒ[ƒ‚É‚µ‚Ü‚·
-    void initialize();
+	// åˆ—æ•°*åˆ—æ•°ã®å˜ä½è¡Œåˆ—ã«ã™ã‚‹
+	void identity();
+	// å…¨ã¦ã®è¦ç´ ã‚’ã‚¼ãƒ­ã«ã™ã‚‹
+	void initialize();
 };
 
-inline Matrix operator+(const Matrix& a, const Matrix& b);
-inline Matrix operator-(const Matrix& a, const Matrix& b);
-inline Matrix operator*(const Matrix& a, const long double& b);
-inline Matrix operator/(const Matrix& a, const long double& b);
-inline Matrix operator%(const Matrix& a, const long long& b);
-inline Matrix operator*(const Matrix &a, const Matrix &b);
+inline Matrix operator+(const Matrix& a, const Matrix& b) {
+	Matrix c = a;
+	return c += b;
+}
+inline Matrix operator-(const Matrix& a, const Matrix& b) {
+	Matrix c = a;
+	return c -= b;
+}
+inline Matrix operator*(const Matrix& a, const ld& b) {
+	Matrix c = a;
+	return c *= b;
+}
+inline Matrix operator/(const Matrix& a, const ld& b) {
+	Matrix c = a;
+	return c /= b;
+}
+inline Matrix operator%(const Matrix& a, const long long& b) {
+	Matrix c = a;
+	c %= b;
+	return c;
+}
+inline Matrix operator*(const Matrix& a, const Matrix& b) {
+	Matrix c(a.height, b.width);
+	c.initialize();
+	for (int i = 0; i < a.height; i++) {
+		for (int j = 0; j < a.width; j++) {
+			for (int z = 0; z < b.width; z++) {
+				c.dat[i][z] += a.dat[i][j] * b.dat[j][z];
+			}
+		}
+	}
+	return c;
+}
 
-[[deprecated]]
-Matrix mod_pow(const Matrix &matrix, long long n, long long Mod);
+[[deprecated]] Matrix mod_pow(const Matrix& matrix, long long n, long long Mod);

@@ -2,36 +2,76 @@
 #include "Base.hpp"
 
 class Vec3 {
-public:
-	ld x = 0, y = 0, z = 0;
-	Vec3(ld x, ld y, ld z) :x(x), y(y), z(z) {}
+  public:
+	ld x, y, z;
+	Vec3(ld x, ld y, ld z) : x(x), y(y), z(z) {}
+	Vec3() : x(0), y(0), z(0) {}
 
-	inline Vec3& operator+() { return (*this); };
-	inline Vec3& operator-() { return Vec3(-x, -y, -z); };
+	Vec3& operator+() {
+		return (*this);
+	};
+	Vec3& operator-();
 
-	inline Vec3& operator+=(const Vec3 & vec);
-	inline Vec3& operator-=(const Vec3 & vec);
+	Vec3& operator+=(const Vec3& vec);
+	Vec3& operator-=(const Vec3& vec);
 
-	inline Vec3& operator*=(const ld & a);
-	inline Vec3& operator/=(const ld & a);
-	inline Vec3& operator%=(const ld & a);
+	Vec3& operator*=(const ld& a);
+	Vec3& operator/=(const ld& a);
+	Vec3& operator%=(const ll& a);
 
-	inline bool operator==(const Vec3 & vec);
-	inline bool operator!=(const Vec3 & vec);
+	bool operator==(const Vec3& vec);
+	bool operator!=(const Vec3& vec);
 
 	ld length();
+	//�x�N�g���𐳋K������
 	void normal();
-	ld radian(const Vec3 & vec);
 };
-inline Vec3 Vec3::operator+(const Vec3& a, const Vec3& b);
-inline Vec3 Vec3::operator-(const Vec3& a, const Vec3& b);
-inline ld Vec3::operator*(const Vec3& a, const Vec3& b);
-inline Vec3 Vec3::operator%(const Vec3& a, const Vec3& b);
-inline Vec3& operator%=(const Vec3& vec);
 
-inline Vec3 Vec3::operator*(const Vec3& vec, const ld& a);
-inline Vec3 Vec3::operator/(const Vec3& vec, const ld& a);
-inline Vec3 Vec3::operator%(const Vec3& vec, const ld& a);
-inline Vec3 Vec3::operator*(const ld& a, const Vec3& vec);
-inline Vec3 Vec3::operator/(const ld& a, const Vec3& vec);
-inline Vec3 Vec3::operator%(const ld& a, const Vec3& vec);
+inline Vec3 operator+(const Vec3& a, const Vec3& b) {
+	Vec3 vec = a;
+	vec += b;
+	return vec;
+}
+inline Vec3 operator-(const Vec3& a, const Vec3& b) {
+	Vec3 vec = a;
+	vec -= b;
+	return vec;
+}
+inline ld operator*(const Vec3& a, const Vec3& b) {
+	ld num = a.x * b.x + a.y * b.y + a.z * b.z;
+	return num;
+}
+inline Vec3 operator%(const Vec3& a, const Vec3& b) {
+	Vec3 vec;
+	vec.x = a.y * b.z - a.z * b.y;
+	vec.y = a.z * b.x - a.x * b.z;
+	vec.z = a.x * b.y - a.y * b.x;
+	return vec;
+}
+inline Vec3 operator*(const Vec3& vec, const ld& a) {
+	Vec3 b = vec;
+	b *= a;
+	return b;
+}
+inline Vec3 operator/(const Vec3& vec, const ld& a) {
+	Vec3 b = vec;
+	b /= a;
+	return b;
+}
+inline Vec3 operator%(const Vec3& vec, const ll& a) {
+	Vec3 b = vec;
+	b %= a;
+	return b;
+}
+inline Vec3 operator*(const ld& a, const Vec3& vec) {
+	return vec * a;
+}
+inline Vec3 operator/(const ld& a, const Vec3& vec) {
+	return vec / a;
+}
+inline Vec3 operator%(const ll& a, const Vec3& vec) {
+	return vec % a;
+}
+
+//�x�N�g��2�̊Ԃ̊p�x��Ԃ�
+ld radian(Vec3& a, Vec3& b);
