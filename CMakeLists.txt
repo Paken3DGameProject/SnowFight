@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 project(SnowFight CXX)
+if(MSVC)
+	set(CMAKE_CXX_FLAGS "/source-charset:utf-8")
+endif()
 add_library(Matrix SHARED Matrix.cpp)
 add_library(Vector3 SHARED Vector3.cpp)
 add_executable(Test main.cpp)
