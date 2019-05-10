@@ -3,6 +3,8 @@
 #include<iostream>
 #include<algorithm>
 #include<cmath>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 using namespace std;
 typedef long long ll;
