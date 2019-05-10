@@ -23,7 +23,7 @@ class Vec3 {
 	bool operator!=(const Vec3& vec);
 
 	ld length();
-	//�x�N�g���𐳋K������
+	//ベクトルを正規化する
 	void normal();
 };
 
@@ -73,5 +73,5 @@ inline Vec3 operator%(const ll& a, const Vec3& vec) {
 	return vec % a;
 }
 
-//�x�N�g��2�̊Ԃ̊p�x��Ԃ�
+//ベクトル2つの間の角度を返す
 ld radian(Vec3& a, Vec3& b);
