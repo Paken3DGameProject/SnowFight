@@ -22,7 +22,7 @@ class Vec3 {
 	bool operator==(const Vec3& vec);
 	bool operator!=(const Vec3& vec);
 
-	ld length();
+	ld size();
 	//ベクトルを正規化する
 	void normal();
 };

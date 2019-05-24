@@ -1,4 +1,3 @@
-#include "Base.hpp"
 #include "Vector3.hpp"
 
 Vec3& Vec3::operator+=(const Vec3& vec) {
@@ -40,16 +39,16 @@ bool Vec3::operator!=(const Vec3& vec) {
 	return (*this) != vec;
 }
 
-ld Vec3::length() {
+ld Vec3::size() {
 	return sqrt(x * x + y * y + z * z);
 }
 void Vec3::normal() {
-	ld t = this->length();
+	ld t = this->size();
 	x /= t;
 	y /= t;
 	z /= t;
 }
 ld radian(Vec3& a, Vec3& b) {
 	ld tmp = a * b;
-	return tmp / a.length() / b.length();
+	return tmp / a.size() / b.size();
 }
