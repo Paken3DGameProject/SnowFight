@@ -13,3 +13,4 @@ build/
 workspace/
 bin/
 obj/
+CMakeSettings.json
