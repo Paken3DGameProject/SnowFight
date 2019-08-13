@@ -1,0 +1,5 @@
+﻿  Source.cpp
+Source.obj : error LNK2019: 未解決の外部シンボル _glfwInit が関数 _main で参照されました。
+Source.obj : error LNK2019: 未解決の外部シンボル _glfwCreateWindow が関数 _main で参照されました。
+Source.obj : error LNK2019: 未解決の外部シンボル _glfwMakeContextCurrent が関数 _main で参照されました。
+C:\Users\katea\source\repos\SnowFight\Debug\SnowFight.exe : fatal error LNK1120: 3 件の未解決の外部参照
