@@ -12,11 +12,12 @@
 #include "ShapeIndex.hpp"
 #include "Player.hpp"
 #include "SnowBall.hpp"
+#include "LoadTexture.hpp"
 
-constexpr Object::Vertex ground_vertex[] = {{-30.0f, 0.0f, -30.0f, 0.45f, 0.30f, 0.19f},
-                                            {-30.0f, 0.0f, 30.0f,  0.45f, 0.30f, 0.19f},
-                                            {30.0f,  0.0f, -30.0f, 0.45f, 0.30f, 0.19f},
-                                            {30.0f,  0.0f, 30.0f,  0.45f, 0.30f, 0.19f}};
+constexpr Object::TextureVertex ground_vertex[] = {{-30.0f, 0.0f, -30.0f, 0.0f,1.0f},
+                                            {-30.0f, 0.0f, 30.0f,   0.0f,0.0f},
+                                            {30.0f,  0.0f, -30.0f, 1.0f,1.0f},
+                                            {30.0f,  0.0f, 30.0f,  1.0f,0.0f}};
 
 constexpr Object::Vertex walls_vertex[] = {
         {-30.0f, 0.0f, -30.0f, 0.96f, 0.87f, 0.7f},
@@ -106,9 +107,16 @@ int main() {
     const GLuint normal_program(loadProgram("../resources/normal.vert", "../resources/normal.frag"));
     const GLuint texture_program(loadProgram("../resources/texture.vert", "../resources/texture.frag"));
 
+	//テクスチャの読み込み
+	const GLuint texture(loadBMP("../resources/ground.bmp"));
+
     //バーテックスシェーダのuniform変数の場所を取得
     const GLuint normal_modelview_loc(glGetUniformLocation(normal_program, "modelview"));
     const GLuint normal_projection_loc(glGetUniformLocation(normal_program, "projection"));
+	const GLuint texture_modelview_loc(glGetUniformLocation(texture_program, "modelview"));
+	const GLuint texture_projection_loc(glGetUniformLocation(texture_program, "projection"));
+	const GLuint texture_loc(glGetUniformLocation(texture_program, "texture"));
+
 
     // unique_ptrを使うことでptrの削除時にインスタンスも消える
     std::unique_ptr<const Shape> ground(new Shape(3, 4, ground_vertex));
@@ -125,8 +133,7 @@ int main() {
     while (window) {                                        //描画更新
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //カラーバッファをglClearColorで指定した色で塗りつぶす
 
-        glUseProgram(normal_program); //シェーダプログラムの使用開始
-
+        
         if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE && glfwGetTime() > 1.0) {
             glfwSetTime(0.0);
             player.throwBall(0.3f, snowballs_vec);
@@ -143,12 +150,18 @@ int main() {
         const Matrix modelview(view);
 
         // uniform変数の設定
-        glUniformMatrix4fv(normal_projection_loc, 1, GL_FALSE, projection.data());
-        glUniformMatrix4fv(normal_modelview_loc, 1, GL_FALSE, modelview.data());
+        
 
         //描画
-        ground->draw(GL_TRIANGLE_STRIP);
-        walls_bound->draw(GL_TRIANGLES);
+		glUseProgram(texture_program);
+		glUniform1i(texture_loc, 0);
+		glUniformMatrix4fv(texture_projection_loc, 1, GL_FALSE, projection.data());
+		glUniformMatrix4fv(texture_modelview_loc, 1, GL_FALSE, modelview.data());
+		ground->draw(GL_TRIANGLE_STRIP);
+		glUseProgram(normal_program); //シェーダプログラムの使用開始
+		glUniformMatrix4fv(normal_projection_loc, 1, GL_FALSE, projection.data());
+		glUniformMatrix4fv(normal_modelview_loc, 1, GL_FALSE, modelview.data());
+		walls_bound->draw(GL_TRIANGLES);
         walls->draw(GL_TRIANGLES);
         for (SnowBall &ball : snowballs_vec) {
             ball.update();

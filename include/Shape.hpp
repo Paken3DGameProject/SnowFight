@@ -18,6 +18,7 @@ public:
     Shape(GLint size, GLsizei vertex_count, const Object::Vertex *vertex, GLsizei index_count = 0,
           const GLuint *index = NULL) : object(new Object(size, vertex_count, vertex, index_count, index)),
                                         vertex_count(vertex_count) {}
+  Shape(GLint size, GLsizei vertex_count, const Object::TextureVertex* vertex, GLsizei index_count = 0, const GLuint* index = NULL) : object(new Object(size, vertex_count, vertex, index_count, index)), vertex_count(vertex_count) {}
 
     virtual void execute(GLenum mode) const { //•`‰æ‚ÌÀs
         glDrawArrays(mode, 0, vertex_count);   //(}Œ`‚Ìí—Ş,•`‰æ‚·‚é’¸“_‚Ìæ“ª”Ô†,’¸“_‚Ì”)

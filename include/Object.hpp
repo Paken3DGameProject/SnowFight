@@ -14,34 +14,40 @@
 
 class Object { //図形データの管理
 
-    GLuint vao{}; //頂点配列オブジェクト名
+	GLuint vao{}; //頂点配列オブジェクト名
 
-    GLuint vbo{}; //頂点バッファオブジェクト名
+	GLuint vbo{}; //頂点バッファオブジェクト名
 
-    GLuint ibo{}; // indexの頂点バッファオブジェクト名
+	GLuint ibo{}; // indexの頂点バッファオブジェクト名
 
-public:
-    struct Vertex {
-        GLfloat position[3]; //頂点の位置(x,y,z)
+  public:
+	struct Vertex {
+		GLfloat position[3]; //頂点の位置(x,y,z)
 
-        GLfloat color[3]; //色(R,G,B)
-    };
+		GLfloat color[3]; //色(R,G,B)
+	};
+	struct TextureVertex {
+		GLfloat position[3]; //頂点の位置(x,y,z)
 
-    //コンストラクタ
-    //(次元、頂点数、頂点を格納した配列,indexの数,indexを格納した配列
-    Object(GLint size, GLsizei vertexcount, const Vertex *vertex, GLsizei indexcount = 0, const GLuint *index = NULL);
+		GLfloat UV[2]; //色(R,G,B)
+	};
 
-    virtual ~Object(); //仮想関数にすることで派生クラスで再定義可能に
+	//コンストラクタ
+	//(次元、頂点数、頂点を格納した配列,indexの数,indexを格納した配列
+	Object(GLint size, GLsizei vertexcount, const Vertex* vertex, GLsizei indexcount = 0, const GLuint* index = NULL);
+	Object(GLint size, GLsizei vertexcount, const TextureVertex* vertex, GLsizei indexcount = 0, const GLuint* index = NULL);
 
-private:
-    //コピーコンストラクタをprivateにする
-    //複数のオブジェクトで同じ頂点オブジェクトを保持するのを防ぐ
-    Object(const Object &o);
+	virtual ~Object(); //仮想関数にすることで派生クラスで再定義可能に
 
-    Object &operator=(const Object &o);
+  private:
+	//コピーコンストラクタをprivateにする
+	//複数のオブジェクトで同じ頂点オブジェクトを保持するのを防ぐ
+	Object(const Object& o);
 
-public:
-    void bind() const {         //描画指定の関数
-        glBindVertexArray(vao); //描画する頂点配列オブジェクトを指定
-    }
+	Object& operator=(const Object& o);
+
+  public:
+	void bind() const {         //描画指定の関数
+		glBindVertexArray(vao); //描画する頂点配列オブジェクトを指定
+	}
 };
