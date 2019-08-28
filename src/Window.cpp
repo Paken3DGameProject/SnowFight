@@ -36,7 +36,7 @@ Window::operator bool() {
 
     //正規化デバイス座標系上の座標に変換
     cursor[0] = static_cast<GLfloat>(x) * 2.0f / size[0] - 1.0f;
-    cursor[1] = 1.0f - static_cast<GLfloat>(y) * 2.0f - size[1];
+    cursor[1] = 1.0f - static_cast<GLfloat>(y) * 2.0f / size[1];
 
     //適当な数をかけて回す
     player->rotate(-cursor[0] * 2.5f, cursor[1] * 2.5f);
