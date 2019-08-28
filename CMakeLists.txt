@@ -29,7 +29,7 @@ add_library(Object STATIC src/Object.cpp)
 add_library(Window STATIC src/Window.cpp)
 add_library(Matrix STATIC src/Matrix.cpp)
 add_library(LoadShader STATIC src/LoadShader.cpp)
-add_executable(SnowFight main.cpp .clang-format)
+add_executable(SnowFight main.cpp)
 
 if(MSVC)
 	#target_link_libraries(SnowFight opengl32)
