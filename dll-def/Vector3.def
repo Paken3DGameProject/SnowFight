@@ -1,5 +1,0 @@
-LIBRARY   Vector3
-EXPORTS
-   radian
-   normal
-   size
