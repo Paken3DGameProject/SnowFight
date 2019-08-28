@@ -19,6 +19,8 @@ class SnowBall {
 
     const unsigned int from_id; //どのプレイヤーから投げられたか
 
+	bool waitRemove;//消去待ちかどうか
+
     const int slices = 64, stacks = 32;
 
     std::vector<Object::Vertex> sphereVertex;
@@ -29,8 +31,8 @@ class SnowBall {
 public:
 	SnowBall(GLfloat position_x, GLfloat position_y, GLfloat position_z,
 		GLfloat direction_x, GLfloat direction_y, GLfloat direction_z,
-		GLfloat speed, unsigned int from_id,GLfloat lifespan)
-		: speed(speed), from_id(from_id), throughTime(glfwGetTime()),lifeSpan(lifespan) {
+		GLfloat speed, unsigned int from_id, GLfloat lifespan)
+		: speed(speed), from_id(from_id), throughTime(glfwGetTime()), lifeSpan(lifespan), waitRemove(false) {
 		position[0] = position_x;
 		position[1] = position_y;
 		position[2] = position_z;
@@ -60,7 +62,7 @@ public:
 		update();
 	}
 
-	SnowBall(const SnowBall& snowball) : speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan) {
+	SnowBall(const SnowBall& snowball) : speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan), waitRemove(false) {
 		position[0] = snowball.position[0];
 		position[1] = snowball.position[1];
 		position[2] = snowball.position[2];
@@ -72,9 +74,9 @@ public:
 		shape = snowball.shape;
 	}
 
-    bool update() {//寿命判定と情報更新
+    void update() {//寿命判定と情報更新
 
-		if (throughTime + lifeSpan < glfwGetTime())return false;
+		if (throughTime + lifeSpan < glfwGetTime())waitRemove = true;
 
         sphereVertex.clear();
         GLfloat mag = speed / hypot(hypot(direction[0], direction[1]), direction[2]);
@@ -94,8 +96,6 @@ public:
 
         shape = std::make_shared<ShapeIndex>(3, static_cast<GLsizei>(sphereVertex.size()), sphereVertex.data(),
                                              static_cast<GLsizei>(sphereIndex.size()), sphereIndex.data());
-
-		return true;
     }
 
     void draw() {
@@ -106,6 +106,10 @@ public:
         position[0] += x;
         position[1] += y;
         position[2] += z;
+		if (position[1] < 0.5f) {
+			waitRemove = true;
+			return;
+		}
 		if (position[1] < 7.0f) {//壁の高さをより下で
 			if (position[0] < -29.5f || 29.5f < position[0]) {//x方向の壁に当たる
 				position[0] = std::max(static_cast<GLfloat>(-29.5f), position[0]);
@@ -119,4 +123,8 @@ public:
 			}
 		}
     }
+
+	bool shouldRemove() {
+		return waitRemove;
+	}
 };

@@ -1,5 +1,5 @@
 //シェーダプログラムをロードして使う
-#include "LoadShader.hpp"
+#include "LoadResources.hpp"
 
 GLboolean printShaderInfoLog(GLuint shader, const char *str) {
     GLint status;
@@ -115,4 +115,48 @@ GLuint loadProgram(const char *vert, const char *frag) {
 
     //プログラムオブジェクトを作成する
     return vstat && fstat ? createProgram(vsrc.data(), fsrc.data()) : 0;
+}
+
+GLuint loadBMP(const char* imagePath) {
+	//ヘッダのデータ
+	unsigned char header[54];
+	unsigned int dataPos;
+	unsigned int height, width;
+	unsigned int imageSize;
+	//実際のRGBデータ
+	unsigned char* data;
+
+	FILE* file = fopen(imagePath, "rb");
+	if (!file) {
+		std::cerr << "Can't open image file" << std::endl;
+		return 0;
+	}
+	if (fread(header, 1, 54, file) != 54) {//ヘッダ読み込み
+		std::cerr << "The file is not BMP" << std::endl;
+		return false;
+	}
+
+	//データの読み込み
+	dataPos = *(int*) & (header[0x0A]);
+	imageSize = *(int*) & (header[0x22]);
+	width = *(int*) & (header[0x12]);
+	height = *(int*) & (header[0x16]);
+
+	//ミスフォーマットを補足
+	if (imageSize == 0)imageSize = width * height * 3;
+	if (dataPos == 0)dataPos = 54;
+
+	data = new unsigned char[imageSize];//バッファを作る
+	fread(data, 1, imageSize, file);//バッファに読み込む
+	fclose(file);//ファイルを閉じる
+
+	//テクスチャオブジェクトを作る
+	GLuint textureID;
+	glGenTextures(1, &textureID);
+	glBindTexture(GL_TEXTURE_2D, textureID);
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }

@@ -82,10 +82,10 @@ public:
     }
 
     SnowBall throwBall(GLfloat speed, GLfloat lifespan) {
-		return SnowBall(position[0], position[1], position[2], direction[0], direction[1], direction[2], speed, id, lifespan);
+		return SnowBall(position[0], position[1] + 1.0f, position[2], direction[0], direction[1], direction[2], speed, id, lifespan);
     }
 
     SnowBall throwBall(GLfloat directionX, GLfloat directionY, GLfloat directionZ, GLfloat speed, GLfloat lifespan) {
-		return SnowBall(position[0], position[1], position[2], directionX, directionY, directionZ, speed, id, lifespan);
+		return SnowBall(position[0], position[1] + 1.0f, position[2], directionX, directionY, directionZ, speed, id, lifespan);
 	}
 };

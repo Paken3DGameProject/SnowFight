@@ -4,7 +4,7 @@
 /******************************************/
 
 #include "Base.hpp"
-#include "LoadShader.hpp"
+#include "LoadResources.hpp"
 #include "Shape.hpp"
 #include "Object.hpp"
 #include "Window.hpp"
@@ -87,9 +87,9 @@ int main() {
 		return 1;
 	}
 
-	// GLFWのバージョンを選択(Version 3.2 Core Profile)
-	// glfwDefaultWindowHints()でデフォルトに戻せるらしい
-	// GPUが対応していない場合は後のglfwCreateWindow()で失敗する
+	//GLFWのバージョンを選択(Version 3.2 Core Profile)
+	//glfwDefaultWindowHints()でデフォルトに戻せるらしい
+	//GPUが対応していない場合は後のglfwCreateWindow()で失敗する
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
@@ -112,7 +112,7 @@ int main() {
 	const GLuint normalModelviewLoc(glGetUniformLocation(normalProgram, "modelview"));
 	const GLuint normalProjectionLoc(glGetUniformLocation(normalProgram, "projection"));
 
-	// unique_ptrを使うことでptrの削除時にインスタンスも消える
+	//unique_ptrを使うことでptrの削除時にインスタンスも消える
 	std::unique_ptr<const Shape> ground(new Shape(3, 4, ground_vertex));
 	std::unique_ptr<const Shape> walls(new ShapeIndex(3, 8, walls_vertex, 24, walls_index));
 	std::unique_ptr<const Shape> wallsBound(new ShapeIndex(3, 32, walls_bound_vertex, 72, walls_bound_index));
@@ -126,10 +126,10 @@ int main() {
 
 	glfwSetTime(0.0);
 
-	while (window) {                                        //描画更新
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //カラーバッファをglClearColorで指定した色で塗りつぶす
+	while (window) {//描画更新
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//カラーバッファをglClearColorで指定した色で塗りつぶす
 
-		glUseProgram(normalProgram); //シェーダプログラムの使用開始
+		glUseProgram(normalProgram);//シェーダプログラムの使用開始
 
 		if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE && lastThrough + 1.0 < glfwGetTime()) {
 			lastThrough = glfwGetTime();
@@ -138,7 +138,7 @@ int main() {
 
 		//ここから描画処理
 		const GLfloat* const size(window.getSize());
-		const GLfloat fovy(window.getScale() * 0.01f); //画角(初期値は60度)
+		const GLfloat fovy(window.getScale() * 0.01f);//画角(初期値は60度)
 		const GLfloat aspect(size[0] / size[1]);
 		const Matrix projection(Matrix::perspective(fovy, aspect, 0.1f, 100.0f));
 
@@ -154,9 +154,9 @@ int main() {
 		ground->draw(GL_TRIANGLE_STRIP);
 		wallsBound->draw(GL_TRIANGLES);
 		walls->draw(GL_TRIANGLES);
-		std::cout << snowBallsVec.size() << std::endl;
 		for (int i = 0; i < snowBallsVec.size(); i++) {
-			if (snowBallsVec[i].update())snowBallsVec[i].draw();
+			snowBallsVec[i].update();
+			if(!snowBallsVec[i].shouldRemove())snowBallsVec[i].draw();
 			else {
 				std::vector<SnowBall> evac;
 				for (int j = i + 1; j < snowBallsVec.size(); j++)evac.push_back(snowBallsVec[j]);
