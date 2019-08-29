@@ -38,6 +38,7 @@ GLboolean printProgramInfoLog(GLuint program) {
 }
 
 bool readShaderSource(const char *name, std::vector<GLchar> &buffer) {
+	printf(name);
     if (name == NULL) return false;
 
     std::ifstream file(name, std::ios::binary);
@@ -89,14 +90,6 @@ GLuint createProgram(const char *vsrc, const char *fsrc) {
         if (printShaderInfoLog(fobj, "fragment shader")) glAttachShader(program, fobj);
         glDeleteShader(fobj);
     }
-
-    //バーテックスシェーダの入力のindexを設定
-    glBindAttribLocation(program, 0, "position"); // position
-    glBindAttribLocation(program, 1, "color");    // color
-
-    //フラグメントシェーダの出力のindexを設定
-    glBindFragDataLocation(program, 0, "fragment");
-    //これらはGPUのレジスタ番号に相当する
 
     //プログラムオブジェクトをリンク
     glLinkProgram(program);
