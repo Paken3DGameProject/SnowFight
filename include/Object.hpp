@@ -30,16 +30,14 @@ public:
 	struct TextureVertex {
 		GLfloat position[3];
 
-		GLfloat color[3];
-
 		GLfloat UV[2];
 	};
 
     //コンストラクタ
     //(次元、頂点数、頂点を格納した配列,indexの数,indexを格納した配列
-    Object(GLint size, GLsizei vertexcount, const Vertex *vertex, GLsizei indexcount = 0, const GLuint *index = NULL);
+    Object(GLint size, GLsizei vertexCount, const Vertex *vertex, GLsizei indexCount = 0, const GLuint *index = NULL);
 
-	Object(GLint size, GLsizei texturevertexcount, const TextureVertex* vertex, GLsizei indexcount = 0, const GLuint * index = NULL);
+	Object(GLint size, GLsizei texturevertexCount, const TextureVertex* vertex, GLsizei indexCount = 0, const GLuint * index = NULL);
 
     virtual ~Object(); //仮想関数にすることで派生クラスで再定義可能に
 

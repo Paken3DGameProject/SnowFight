@@ -38,7 +38,6 @@ GLboolean printProgramInfoLog(GLuint program) {
 }
 
 bool readShaderSource(const char *name, std::vector<GLchar> &buffer) {
-	printf(name);
     if (name == NULL) return false;
 
     std::ifstream file(name, std::ios::binary);
@@ -75,10 +74,8 @@ GLuint createProgram(const char *vsrc, const char *fsrc) {
         glShaderSource(vobj, 1, &vsrc, NULL);
         glCompileShader(vobj);
 
-        if (printShaderInfoLog(vobj, "vertex shader"))
-            glAttachShader(program, vobj); //プログラムにシェーダオブジェクトをアタッチ(逆はglDetachShader)
-        glDeleteShader(
-                vobj);                                                         //シェーダオブジェクトに削除マークを付け、どこでも使われなくなったら即消す
+        if (printShaderInfoLog(vobj, "vertex shader")) glAttachShader(program, vobj); //プログラムにシェーダオブジェクトをアタッチ(逆はglDetachShader)
+        glDeleteShader(vobj);                                                         //シェーダオブジェクトに削除マークを付け、どこでも使われなくなったら即消す
     }
 
     if (fsrc != NULL) {
@@ -90,6 +87,8 @@ GLuint createProgram(const char *vsrc, const char *fsrc) {
         if (printShaderInfoLog(fobj, "fragment shader")) glAttachShader(program, fobj);
         glDeleteShader(fobj);
     }
+
+	glBindFragDataLocation(program, 0, "fragment");
 
     //プログラムオブジェクトをリンク
     glLinkProgram(program);
@@ -152,4 +151,6 @@ GLuint loadBMP(const char* imagePath) {
 
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+	return textureID;
 }

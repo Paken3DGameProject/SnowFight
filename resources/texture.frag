@@ -1,7 +1,7 @@
-#version 150 core//GLSLのバージョンを指定
-in vec4 vertex_color;
-out vec4 fragment;//この変数がカラーバッファに格納される
+#version 330 core//GLSLのバージョンを指定
+in vec2 UV;
+uniform sampler2D texture;
+out vec4 fragment;
 void main(){
-	//fragmentに色情報を代入する
-	fragment=vertex_color;//(R,G,B,透明度)
+	fragment=texture2D(texture,UV);
 }

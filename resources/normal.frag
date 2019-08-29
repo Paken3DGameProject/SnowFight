@@ -1,7 +1,6 @@
-#version 150 core//GLSLのバージョンを指定
+#version 330 core//GLSLのバージョンを指定
 in vec4 vertex_color;
-out vec4 fragment;//この変数がカラーバッファに格納される
+out vec4 fragment;
 void main(){
-	//fragmentに色情報を代入する
-	fragment=vertex_color;//(R,G,B,透明度)
+	fragment=vertex_color;
 }

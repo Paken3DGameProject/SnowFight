@@ -14,10 +14,10 @@
 #include "SnowBall.hpp"
 
 constexpr Object::TextureVertex ground_vertex[] = {
-	{-30.0f, 0.0f, -30.0f, 0.0f,0.0f},
-	{-30.0f, 0.0f, 30.0f, 0.0f,1.0f},
-	{30.0f, 0.0f, -30.0f, 1.0f,0.0f},
-	{30.0f, 0.0f, 30.0f, 1.0f,1.0f}
+	{-30.0f, 0.0f, -30.0f, 0.0f,1.0f},
+	{-30.0f, 0.0f, 30.0f, 0.0f,0.0f},
+	{30.0f, 0.0f, -30.0f, 1.0f,1.0f},
+	{30.0f, 0.0f, 30.0f, 1.0f,0.0f}
 };
 
 constexpr Object::Vertex walls_vertex[] = {
@@ -71,13 +71,35 @@ constexpr Object::Vertex walls_bound_vertex[] = {
     {29.5f, 7.0f, -29.5f, 0.0f, 0.0f, 0.0f},
 };
 
-constexpr GLuint walls_bound_index[] = {1, 3, 5, 3, 5, 7, 2, 3, 6, 3, 6, 7, 4, 5, 6, 5, 6, 7,
+constexpr GLuint walls_bound_index[] = {
+	1, 3, 5,
+	3, 5, 7,
+	2, 3, 6,
+	3, 6, 7,
+	4, 5, 6,
+	5, 6, 7,
 
-    9, 11, 13, 11, 13, 15, 10, 11, 14, 11, 14, 15, 12, 13, 14, 13, 14, 15,
+    9, 11, 13,
+	11, 13, 15,
+	10, 11, 14,
+	11, 14, 15,
+	12, 13, 14,
+	13, 14, 15,
 
-    17, 19, 21, 19, 21, 23, 18, 19, 22, 19, 22, 23, 20, 21, 22, 21, 22, 23,
+    17, 19, 21,
+	19, 21, 23,
+	18, 19, 22,
+	19, 22, 23,
+	20, 21, 22,
+	21, 22, 23,
 
-    25, 27, 29, 27, 29, 31, 26, 27, 30, 27, 30, 31, 28, 29, 30, 29, 30, 31};
+    25, 27, 29,
+	27, 29, 31,
+	26, 27, 30,
+	27, 30, 31,
+	28, 29, 30,
+	29, 30, 31
+};
 
 int main() {
 	if (glfwInit() == GL_FALSE) { //初期化
@@ -110,17 +132,6 @@ int main() {
 
 	const GLuint groundTexture(loadBMP("../resources/ground.bmp"));
 
-	//バーテックスシェーダの入力のindexを設定
-	glBindAttribLocation(normalProgram, 0, "position");// position
-	glBindAttribLocation(normalProgram, 1, "color");// color
-
-	glBindAttribLocation(textureProgram, 0, "position");//position
-	glBindAttribLocation(textureProgram, 1, "UV");//UV
-
-	//フラグメントシェーダの出力のindexを設定
-	glBindFragDataLocation(normalProgram, 0, "fragment");
-	//これらはGPUのレジスタ番号に相当する
-
 	//バーテックスシェーダのuniform変数の場所を取得
 	const GLuint normalModelviewLoc(glGetUniformLocation(normalProgram, "modelview"));
 	const GLuint normalProjectionLoc(glGetUniformLocation(normalProgram, "projection"));
@@ -150,18 +161,18 @@ int main() {
 			snowBallsVec.push_back(player.throwBall(0.3f, 5.0f));
 		}
 
+		//ここから描画処理
+		const GLfloat* const size(window.getSize());
+		const GLfloat fovy(window.getScale() * 0.01f);//画角(初期値は60度)
+		const GLfloat aspect(size[0] / size[1]);
+		const Matrix projection(Matrix::perspective(fovy, aspect, 0.1f, 100.0f));
+
+		const Matrix view(player);
+
+		const Matrix modelview(view);
+
 		{//normalProgramでの描画
-			glUseProgram(normalProgram);//シェーダプログラムの使用開始
-
-			//ここから描画処理
-			const GLfloat* const size(window.getSize());
-			const GLfloat fovy(window.getScale() * 0.01f);//画角(初期値は60度)
-			const GLfloat aspect(size[0] / size[1]);
-			const Matrix projection(Matrix::perspective(fovy, aspect, 0.1f, 100.0f));
-
-			const Matrix view(player);
-
-			const Matrix modelview(view);
+			glUseProgram(normalProgram);
 
 			// uniform変数の設定
 			glUniformMatrix4fv(normalProjectionLoc, 1, GL_FALSE, projection.data());
@@ -186,15 +197,6 @@ int main() {
 		{//textureProgramでの描画
 			glUseProgram(textureProgram);
 
-			const GLfloat* const size(window.getSize());
-			const GLfloat fovy(window.getScale() * 0.01f);//画角(初期値は60度)
-			const GLfloat aspect(size[0] / size[1]);
-			const Matrix projection(Matrix::perspective(fovy, aspect, 0.1f, 100.0f));
-
-			const Matrix view(player);
-
-			const Matrix modelview(view);
-
 			// uniform変数の設定
 			glUniformMatrix4fv(textureProjectionLoc, 1, GL_FALSE, projection.data());
 			glUniformMatrix4fv(textureModelviewLoc, 1, GL_FALSE, modelview.data());
@@ -202,6 +204,7 @@ int main() {
 
 			ground->draw(GL_TRIANGLE_STRIP);
 		}
+
 		window.swapBuffers();
 	}
 }
