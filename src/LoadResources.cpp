@@ -109,7 +109,7 @@ GLuint loadProgram(const char *vert, const char *frag) {
     return vstat && fstat ? createProgram(vsrc.data(), fsrc.data()) : 0;
 }
 
-GLuint loadBMP(const char* imagePath) {
+GLuint loadBMP(const char* imagePath, GLenum unit) {
 	//ヘッダのデータ
 	unsigned char header[54];
 	unsigned int dataPos;
@@ -142,6 +142,7 @@ GLuint loadBMP(const char* imagePath) {
 	fread(data, 1, imageSize, file);//バッファに読み込む
 	fclose(file);//ファイルを閉じる
 
+	glActiveTexture(unit);
 	//テクスチャオブジェクトを作る
 	GLuint textureID;
 	glGenTextures(1, &textureID);

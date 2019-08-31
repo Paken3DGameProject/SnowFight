@@ -1,4 +1,4 @@
-#version 330 core//GLSLのバージョンを指定
+#version 460 core//GLSLのバージョンを指定
 //in変数は頂点ごと、uniform変数は描画命令ごとにCPUから送られてくる
 uniform mat4 modelview;
 uniform mat4 projection;

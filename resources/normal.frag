@@ -1,4 +1,4 @@
-#version 330 core//GLSLのバージョンを指定
+#version 460 core//GLSLのバージョンを指定
 in vec4 vertex_color;
 out vec4 fragment;
 void main(){

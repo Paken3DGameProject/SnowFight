@@ -109,11 +109,11 @@ int main() {
 		return 1;
 	}
 
-	//GLFWのバージョンを選択(Version 3.2 Core Profile)
+	//GLFWのバージョンを選択(Version 3.3 Core Profile)
 	//glfwDefaultWindowHints()でデフォルトに戻せるらしい
 	//GPUが対応していない場合は後のglfwCreateWindow()で失敗する
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
@@ -130,7 +130,7 @@ int main() {
 	const GLuint normalProgram(loadProgram("../resources/normal.vert", "../resources/normal.frag"));
 	const GLuint textureProgram(loadProgram("../resources/texture.vert", "../resources/texture.frag"));
 
-	const GLuint groundTexture(loadBMP("../resources/ground.bmp"));
+	const GLuint groundTexture(loadBMP("../resources/ground.bmp", GL_TEXTURE0));
 
 	//バーテックスシェーダのuniform変数の場所を取得
 	const GLuint normalModelviewLoc(glGetUniformLocation(normalProgram, "modelview"));

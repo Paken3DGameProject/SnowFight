@@ -89,7 +89,7 @@ public:
                 const float s(static_cast<float>(j) / static_cast<float>(slices));
                 const float z(r * cos(acos(-1) * 2 * s)), x(r * sin(acos(-1) * 2 * s));
 
-                const Object::Vertex v = {position[0] + x, position[1] + y, position[2] + z, 1.0f, 1.0f, 1.0f};
+                const Object::Vertex v = {position[0] + x*0.7, position[1] + y*0.7, position[2] + z*0.7, 1.0f, 1.0f, 1.0f};
                 sphereVertex.push_back(v);
             }
         }

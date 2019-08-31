@@ -14,4 +14,4 @@ GLuint createProgram(const char *vsrc, const char *fsrc); //プログラムオブジェク
 
 GLuint loadProgram(const char *vert, const char *frag); //プログラムオブジェクトをファイル名から作成
 
-GLuint loadBMP(const char* imagePath);
+GLuint loadBMP(const char* imagePath, GLenum unit);

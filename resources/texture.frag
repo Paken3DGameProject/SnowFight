@@ -1,4 +1,4 @@
-#version 330 core//GLSLのバージョンを指定
+#version 460 core//GLSLのバージョンを指定
 in vec2 UV;
 uniform sampler2D texture;
 out vec4 fragment;
