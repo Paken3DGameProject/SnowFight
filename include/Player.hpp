@@ -72,21 +72,20 @@ public:
 
     void rotate(GLfloat x, GLfloat y) {
         direction[0] = -sin(x);
+		direction[1] = sin(y);
         direction[2] = -cos(x);
 
-        GLfloat mag = 10.0f / hypot(direction[0], direction[2]);
+        GLfloat mag = 10.0f / hypot(hypot(direction[0], direction[1]),direction[2]);
         direction[0] *= mag;
+		direction[1] *= mag;
         direction[2] *= mag;
     }
 
-    void throwBall(GLfloat speed, std::vector<SnowBall> &vec) {
-        SnowBall ball(position[0], position[1], position[2], direction[0], direction[1], direction[2], speed, id);
-        vec.push_back(ball);
+    SnowBall throwBall(GLfloat speed, GLfloat lifespan) {
+		return SnowBall(position[0], position[1] + 1.0f, position[2], direction[0], direction[1], direction[2], speed, id, lifespan);
     }
 
-    void
-    throwBall(GLfloat directionX, GLfloat directionY, GLfloat directionZ, GLfloat speed, std::vector<SnowBall> &vec) {
-        SnowBall ball(position[0], position[1], position[2], directionX, directionY, directionZ, speed, id);
-        vec.push_back(ball);
-    }
+    SnowBall throwBall(GLfloat directionX, GLfloat directionY, GLfloat directionZ, GLfloat speed, GLfloat lifespan) {
+		return SnowBall(position[0], position[1] + 1.0f, position[2], directionX, directionY, directionZ, speed, id, lifespan);
+	}
 };

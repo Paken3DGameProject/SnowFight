@@ -1,6 +1,7 @@
 #version 460 core//GLSLのバージョンを指定
-in vec4 vertex_color;
+in vec2 UV;
+uniform sampler2D texture;
 out vec4 fragment;
 void main(){
-	fragment=vertex_color;
+	fragment=texture2D(texture,UV);
 }

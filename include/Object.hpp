@@ -14,11 +14,11 @@
 
 class Object { //図形データの管理
 
-    GLuint vao{}; //頂点配列オブジェクト名
+    GLuint vao; //頂点配列オブジェクト名
 
-    GLuint vbo{}; //頂点バッファオブジェクト名
+    GLuint vbo; //頂点バッファオブジェクト名
 
-    GLuint ibo{}; // indexの頂点バッファオブジェクト名
+    GLuint ibo; // indexの頂点バッファオブジェクト名
 
 public:
     struct Vertex {
@@ -27,9 +27,17 @@ public:
         GLfloat color[3]; //色(R,G,B)
     };
 
+	struct TextureVertex {
+		GLfloat position[3];
+
+		GLfloat UV[2];
+	};
+
     //コンストラクタ
     //(次元、頂点数、頂点を格納した配列,indexの数,indexを格納した配列
-    Object(GLint size, GLsizei vertexcount, const Vertex *vertex, GLsizei indexcount = 0, const GLuint *index = NULL);
+    Object(GLint size, GLsizei vertexCount, const Vertex *vertex, GLsizei indexCount = 0, const GLuint *index = NULL);
+
+	Object(GLint size, GLsizei texturevertexCount, const TextureVertex* vertex, GLsizei indexCount = 0, const GLuint * index = NULL);
 
     virtual ~Object(); //仮想関数にすることで派生クラスで再定義可能に
 
