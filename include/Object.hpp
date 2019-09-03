@@ -49,7 +49,7 @@ private:
     Object &operator=(const Object &o);
 
 public:
-    void bind() const {         //描画指定の関数
-        glBindVertexArray(vao); //描画する頂点配列オブジェクトを指定
-    }
+	//描画指定の関数
+	//描画する頂点配列オブジェクトを指定
+	void bind() const;
 };

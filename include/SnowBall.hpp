@@ -89,7 +89,7 @@ public:
                 const float s(static_cast<float>(j) / static_cast<float>(slices));
                 const float z(r * cos(acos(-1) * 2 * s)), x(r * sin(acos(-1) * 2 * s));
 
-                const Object::Vertex v = {position[0] + x*0.7, position[1] + y*0.7, position[2] + z*0.7, 1.0f, 1.0f, 1.0f};
+				const Object::Vertex v = { position[0] + x * 0.7, position[1] + y * 0.7, position[2] + z * 0.7, 1.0f, 1.0f, 1.0f };;
                 sphereVertex.push_back(v);
             }
         }
@@ -106,19 +106,19 @@ public:
         position[0] += x;
         position[1] += y;
         position[2] += z;
-		if (position[1] < 0.5f) {
+		if (position[1] < 0.175f) {
 			waitRemove = true;
 			return;
 		}
-		if (position[1] < 7.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
-			if (position[0] < -29.5f || 29.5f < position[0]) {//x•ûŒü‚Ì•Ç‚É“–‚½‚é
-				position[0] = std::max(static_cast<GLfloat>(-29.5f), position[0]);
-				position[0] = std::min(static_cast<GLfloat>(29.5f), position[0]);
+		if (position[1] < 8.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
+			if (position[0] < -31.825f || 31.825f < position[0]) {//x•ûŒü‚Ì•Ç‚É“–‚½‚é
+				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
+				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
 				direction[0] = -direction[0];//’µ‚Ë•Ô‚è
 			}
-			if (position[2] < -29.5f || 29.5f < position[2]) {
-				position[2] = std::max(static_cast<GLfloat>(-29.5f), position[2]);
-				position[2] = std::min(static_cast<GLfloat>(29.5f), position[2]);
+			if (position[2] < -31.825f || 31.825f < position[2]) {
+				position[2] = std::max(static_cast<GLfloat>(-31.825f), position[2]);
+				position[2] = std::min(static_cast<GLfloat>(31.825f), position[2]);
 				direction[2] = -direction[2];
 			}
 		}

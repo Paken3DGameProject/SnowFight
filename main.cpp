@@ -1,6 +1,6 @@
 ﻿/******************************************/
 /*              Made by kaage             */
-/*          Last Update 2019/08/28        */
+/*          Last Update 2019/09/01        */
 /******************************************/
 
 #include "Base.hpp"
@@ -14,61 +14,70 @@
 #include "SnowBall.hpp"
 
 constexpr Object::TextureVertex ground_vertex[] = {
-	{-30.0f, 0.0f, -30.0f, 0.0f,1.0f},
-	{-30.0f, 0.0f, 30.0f, 0.0f,0.0f},
-	{30.0f, 0.0f, -30.0f, 1.0f,1.0f},
-	{30.0f, 0.0f, 30.0f, 1.0f,0.0f}
+	{-32.0f, 0.0f, -32.0f, 0.0f,1.0f},
+	{-32.0f, 0.0f, 32.0f, 0.0f,0.0f},
+	{32.0f, 0.0f, -32.0f, 1.0f,1.0f},
+	{32.0f, 0.0f, 32.0f, 1.0f,0.0f}
 };
 
-constexpr Object::Vertex walls_vertex[] = {
-    {-30.0f, 0.0f, -30.0f, 0.96f, 0.87f, 0.7f},
-    {-30.0f, 7.0f, -30.0f, 0.96f, 0.87f, 0.7f},
-    {-30.0f, 0.0f, 30.0f, 0.96f, 0.87f, 0.7f},
-    {-30.0f, 7.0f, 30.0f, 0.96f, 0.87f, 0.7f},
-    {30.0f, 0.0f, 30.0f, 0.96f, 0.87f, 0.7f},
-    {30.0f, 7.0f, 30.0f, 0.96f, 0.87f, 0.7f},
-    {30.0f, 0.0f, -30.0f, 0.96f, 0.87f, 0.7f},
-    {30.0f, 7.0f, -30.0f, 0.96f, 0.87f, 0.7f},
+constexpr Object::TextureVertex walls_vertex[] = {
+	{-32.0f, 0.0f, -32.0f, 0.0f,0.0f},
+	{-32.0f, 8.0f, -32.0f, 0.0f,1.0f},
+	{-32.0f, 0.0f, 32.0f, 1.0f,0.0f},
+	{-32.0f, 8.0f, 32.0f, 1.0f,1.0f},
+	{32.0f, 0.0f, 32.0f, 0.0f,0.0f},
+	{32.0f, 8.0f, 32.0f, 0.0f,1.0f},
+	{32.0f, 0.0f, -32.0f, 1.0f,0.0f},
+	{32.0f, 8.0f, -32.0f, 1.0f,1.0f},
 };
 
-constexpr GLuint walls_index[] = {0, 1, 2, 1, 2, 3, 2, 3, 4, 3, 4, 5, 4, 5, 6, 5, 6, 7, 6, 7, 0, 7, 0, 1};
+constexpr GLuint walls_index[] = {
+	0, 1, 2/*,
+	1, 2, 3,
+	2, 3, 4,
+	3, 4, 5,
+	4, 5, 6,
+	5, 6, 7,
+	6, 7, 0,
+	7, 0, 1*/
+};
 
 constexpr Object::Vertex walls_bound_vertex[] = {
-    {-30.0f, 0.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 7.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 0.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 7.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 0.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 7.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 0.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 7.0f, -29.5f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 8.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 8.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 0.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 8.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 0.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 8.0f, -31.5f, 0.0f, 0.0f, 0.0f},
 
-    {-30.0f, 0.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 7.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 0.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 7.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 0.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {-30.0f, 7.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 0.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {-29.5f, 7.0f, 29.5f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 0.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 8.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 0.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 8.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 0.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {-32.0f, 8.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 0.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {-31.5f, 8.0f, 31.5f, 0.0f, 0.0f, 0.0f},
 
-    {30.0f, 0.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 7.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 0.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 7.0f, 30.0f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 0.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 7.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 0.0f, 29.5f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 7.0f, 29.5f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 0.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 8.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 0.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 8.0f, 32.0f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 0.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 8.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 0.0f, 31.5f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 8.0f, 31.5f, 0.0f, 0.0f, 0.0f},
 
-    {30.0f, 0.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 7.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 0.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 7.0f, -30.0f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 0.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {30.0f, 7.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 0.0f, -29.5f, 0.0f, 0.0f, 0.0f},
-    {29.5f, 7.0f, -29.5f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 8.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 8.0f, -32.0f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 0.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {32.0f, 8.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 0.0f, -31.5f, 0.0f, 0.0f, 0.0f},
+    {31.5f, 8.0f, -31.5f, 0.0f, 0.0f, 0.0f},
 };
 
 constexpr GLuint walls_bound_index[] = {
@@ -117,6 +126,8 @@ int main() {
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	glfwSetTime(0.0);
+
 	Window window;
 
 	glClearColor(160.0 / 256, 216.0 / 256, 239.0 / 256, 1.0f); // Windowを塗りつぶす色を設定
@@ -131,6 +142,7 @@ int main() {
 	const GLuint textureProgram(loadProgram("../resources/texture.vert", "../resources/texture.frag"));
 
 	const GLuint groundTexture(loadBMP("../resources/ground.bmp", GL_TEXTURE0));
+	const GLuint wallsTexture(loadBMP("../resources/wall.bmp", GL_TEXTURE1));
 
 	//バーテックスシェーダのuniform変数の場所を取得
 	const GLuint normalModelviewLoc(glGetUniformLocation(normalProgram, "modelview"));
@@ -141,24 +153,20 @@ int main() {
 
 	//unique_ptrを使うことでptrの削除時にインスタンスも消える
 	std::unique_ptr<const Shape> ground(new Shape(3, 4, ground_vertex));
-	std::unique_ptr<const Shape> walls(new ShapeIndex(3, 8, walls_vertex, 24, walls_index));
+	std::unique_ptr<const Shape> walls(new Shape(3, 8, walls_vertex));
 	std::unique_ptr<const Shape> wallsBound(new ShapeIndex(3, 32, walls_bound_vertex, 72, walls_bound_index));
 
 	std::vector<SnowBall> snowBallsVec;
 
-	double lastThrough = -1.0;//最後にボールを投げた時間
-
 	Player player(1, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -10.0f, 10, 3);
 	window.setPlayer(&player);
-
-	glfwSetTime(0.0);
 
 	while (window) {//描画更新
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//カラーバッファをglClearColorで指定した色で塗りつぶす
 
-		if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE && lastThrough + 1.0 < glfwGetTime()) {
-			lastThrough = glfwGetTime();
-			snowBallsVec.push_back(player.throwBall(0.3f, 5.0f));
+		if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE) {
+			SnowBall* ball = player.throwBall(0.3f, 5.5f);
+			if (ball != nullptr)snowBallsVec.push_back(*ball);
 		}
 
 		//ここから描画処理
@@ -180,7 +188,6 @@ int main() {
 
 			//描画
 			wallsBound->draw(GL_TRIANGLES);
-			walls->draw(GL_TRIANGLES);
 			for (int i = 0; i < snowBallsVec.size(); i++) {
 				snowBallsVec[i].update();
 				if (!snowBallsVec[i].shouldRemove())snowBallsVec[i].draw();
@@ -200,9 +207,12 @@ int main() {
 			// uniform変数の設定
 			glUniformMatrix4fv(textureProjectionLoc, 1, GL_FALSE, projection.data());
 			glUniformMatrix4fv(textureModelviewLoc, 1, GL_FALSE, modelview.data());
-			glUniform1i(textureTextureLoc, 0);
 
+			glUniform1i(textureTextureLoc, 0);
 			ground->draw(GL_TRIANGLE_STRIP);
+
+			glUniform1i(textureTextureLoc, 1);
+			walls->draw(GL_TRIANGLES);
 		}
 
 		window.swapBuffers();

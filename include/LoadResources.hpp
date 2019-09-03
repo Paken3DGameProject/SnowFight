@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Base.hpp"
-#include <GLFW/glfw3.h>
-#include <GL/glew.h>
 
 GLboolean printShaderInfoLog(GLuint shader, const char *str); //シェーダのコンパイル結果を表示する
 

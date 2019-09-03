@@ -1,4 +1,4 @@
-//シェーダプログラムをロードして使う
+//リソースをロードして使う
 #include "LoadResources.hpp"
 
 GLboolean printShaderInfoLog(GLuint shader, const char *str) {
