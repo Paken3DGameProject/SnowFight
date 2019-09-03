@@ -4,14 +4,9 @@
 
 class Vector {
 	GLfloat element[4];
-<<<<<<< HEAD
 	GLfloat length;
 
 public:
-=======
-
-  public:
->>>>>>> 83e6d7c3ec4a8970cf9db19579d3c0af09582f7b
 	//コンストラクタ 変換したいものを渡す
 	Vector(GLfloat x, GLfloat y, GLfloat z, GLfloat w = 1.0f);
 

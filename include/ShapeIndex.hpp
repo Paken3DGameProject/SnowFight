@@ -14,7 +14,7 @@ public:
 		:Shape(size, vertexCount, vertex, indexCount, index), indexCount(indexCount) {}
 
 	ShapeIndex(GLint size, GLsizei textureVertexCount, const Object::TextureVertex* textureVertex, GLsizei indexCount, const GLuint* index)
-		:Shape(size, vertexCount, textureVertex, indexCount, index), indexCount(indexCount) {}
+		:Shape(size, textureVertexCount, textureVertex, indexCount, index), indexCount(indexCount) {}
 
     //ï`âÊÇÃé¿çs
     virtual void execute(GLenum mode) const {

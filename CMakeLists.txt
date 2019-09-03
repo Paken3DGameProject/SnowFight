@@ -30,30 +30,23 @@ add_library(Window STATIC src/Window.cpp)
 add_library(Matrix STATIC src/Matrix.cpp)
 add_library(LoadResources STATIC src/LoadResources.cpp)
 add_library(Vector STATIC src/Vector.cpp)
-<<<<<<< HEAD
 add_library(Player STATIC src/Player.cpp)
-=======
->>>>>>> 83e6d7c3ec4a8970cf9db19579d3c0af09582f7b
 add_executable(SnowFight main.cpp)
 
 if(MSVC)
 	target_link_libraries(SnowFight opengl32)
 	target_link_libraries(SnowFight libglew32d)
 	target_link_libraries(SnowFight glfw3)
-<<<<<<< HEAD
 	target_link_libraries(Object opengl32)
 	target_link_libraries(Object libglew32d)
 	target_link_libraries(Object glfw3)
 	target_link_libraries(Vector opengl32)
 	target_link_libraries(Vector libglew32d)
 	target_link_libraries(Vector glfw3)
-=======
->>>>>>> 83e6d7c3ec4a8970cf9db19579d3c0af09582f7b
 else()
 	target_link_libraries(SnowFight ${OPENGL_LIBRARY})
 	target_link_libraries(SnowFight ${GLEW_LIBRARIES})
 	target_link_libraries(SnowFight ${GLFW_LIBRARIES})
-<<<<<<< HEAD
 	target_link_libraries(Object ${OPENGL_LIBRARY})
 	target_link_libraries(Object ${GLEW_LIBRARIES})
 	target_link_libraries(Object ${GLFW_LIBRARIES})
@@ -64,13 +57,8 @@ endif()
 target_link_libraries(SnowFight Object Window Matrix LoadResources)
 target_link_libraries(Window Player)
 add_custom_target(CopyResources COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources)
-add_dependencies(SnowFight CopyResources) 
-=======
-endif()
+add_dependencies(SnowFight CopyResources)
 target_link_libraries(SnowFight Object)
 target_link_libraries(SnowFight Window)
 target_link_libraries(SnowFight Matrix)
 target_link_libraries(SnowFight LoadResources)
-add_custom_target(CopyResources COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/resources ${CMAKE_CURRENT_BINARY_DIR}/resources)
-add_dependencies(SnowFight CopyResources)
->>>>>>> 83e6d7c3ec4a8970cf9db19579d3c0af09582f7b

@@ -13,14 +13,14 @@
 #include "Player.hpp"
 #include "SnowBall.hpp"
 
-constexpr Object::TextureVertex ground_vertex[] = {
+constexpr Object::TextureVertex groundVertex[] = {
 	{-32.0f, 0.0f, -32.0f, 0.0f,1.0f},
 	{-32.0f, 0.0f, 32.0f, 0.0f,0.0f},
 	{32.0f, 0.0f, -32.0f, 1.0f,1.0f},
 	{32.0f, 0.0f, 32.0f, 1.0f,0.0f}
 };
 
-constexpr Object::TextureVertex walls_vertex[] = {
+constexpr Object::TextureVertex wallsVertex[] = {
 	{-32.0f, 0.0f, -32.0f, 0.0f,0.0f},
 	{-32.0f, 8.0f, -32.0f, 0.0f,1.0f},
 	{-32.0f, 0.0f, 32.0f, 1.0f,0.0f},
@@ -31,18 +31,18 @@ constexpr Object::TextureVertex walls_vertex[] = {
 	{32.0f, 8.0f, -32.0f, 1.0f,1.0f},
 };
 
-constexpr GLuint walls_index[] = {
-	0, 1, 2/*,
+constexpr GLuint wallsIndex[] = {
+	0, 1, 2,
 	1, 2, 3,
 	2, 3, 4,
 	3, 4, 5,
 	4, 5, 6,
 	5, 6, 7,
 	6, 7, 0,
-	7, 0, 1*/
+	7, 0, 1
 };
 
-constexpr Object::Vertex walls_bound_vertex[] = {
+constexpr Object::Vertex wallsBoundVertex[] = {
     {-32.0f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
     {-32.0f, 8.0f, -32.0f, 0.0f, 0.0f, 0.0f},
     {-31.5f, 0.0f, -32.0f, 0.0f, 0.0f, 0.0f},
@@ -80,7 +80,7 @@ constexpr Object::Vertex walls_bound_vertex[] = {
     {31.5f, 8.0f, -31.5f, 0.0f, 0.0f, 0.0f},
 };
 
-constexpr GLuint walls_bound_index[] = {
+constexpr GLuint wallsBoundIndex[] = {
 	1, 3, 5,
 	3, 5, 7,
 	2, 3, 6,
@@ -152,9 +152,9 @@ int main() {
 	const GLuint textureTextureLoc(glGetUniformLocation(textureProgram, "texture"));
 
 	//unique_ptrを使うことでptrの削除時にインスタンスも消える
-	std::unique_ptr<const Shape> ground(new Shape(3, 4, ground_vertex));
-	std::unique_ptr<const Shape> walls(new Shape(3, 8, walls_vertex));
-	std::unique_ptr<const Shape> wallsBound(new ShapeIndex(3, 32, walls_bound_vertex, 72, walls_bound_index));
+	std::unique_ptr<const Shape> ground(new Shape(3, 4, groundVertex));
+	std::unique_ptr<const Shape> walls(new ShapeIndex(3, 8, wallsVertex, 24, wallsIndex));
+	std::unique_ptr<const Shape> wallsBound(new ShapeIndex(3, 32, wallsBoundVertex, 72, wallsBoundIndex));
 
 	std::vector<SnowBall> snowBallsVec;
 
