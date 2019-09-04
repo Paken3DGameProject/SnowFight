@@ -2,7 +2,7 @@
 #include "Player.hpp"
 
 Player::Player(GLint id, const GLfloat positionX, const GLfloat positionY, const GLfloat positionZ, const GLfloat directionX, const GLfloat directionY, const GLfloat directionZ, int snowballs, int life) :
-    id(id), snowballs(snowballs), life(life), lastThrough(glfwGetTime() - 1.0) {
+	id(id), snowballs(snowballs), life(life), lastThrough(glfwGetTime() - 1.0), elevateSpeed(0.0f), hitPoint(100) {
 	position[0] = positionX;
 	position[1] = positionY;
 	position[2] = positionZ;
@@ -14,9 +14,6 @@ Player::Player(GLint id, const GLfloat positionX, const GLfloat positionY, const
 	direction[0] *= mag;
 	direction[1] *= mag;
 	direction[2] *= mag;
-
-	ySpeed = 0.0f;
-	hitPoint = 100;
 }
 
 void Player::damage(int damage) {
@@ -48,18 +45,13 @@ GLfloat* Player::getDirection() {
 
 void Player::move(GLfloat x, GLfloat y, GLfloat z) {
 	position[0] += x;
-	position[1] += y + ySpeed;
+	position[1] += y;
 	position[2] += z;
 
 	position[0] = std::max(static_cast<GLfloat>(-31.5f), position[0]);
 	position[0] = std::min(static_cast<GLfloat>(31.5f), position[0]);
 	position[2] = std::max(static_cast<GLfloat>(-31.5f), position[2]);
 	position[2] = std::min(static_cast<GLfloat>(31.5f), position[2]);
-	if (position[1] <= 0.0f){
-		ySpeed = 0.0f;
-		position[1] = 0.0f;
-	}
-	else ySpeed -= 0.06f;
 }
 
 void Player::rotate(GLfloat x, GLfloat y) {
@@ -74,7 +66,16 @@ void Player::rotate(GLfloat x, GLfloat y) {
 }
 
 void Player::jump(GLfloat speed) {
-	if (ySpeed == 0.0f) ySpeed = speed;
+	if (elevateSpeed == 0.0f) elevateSpeed = speed;
+}
+
+void Player::elevate() {
+	position[1] += elevateSpeed;
+	if (position[1] <= 0.0f) {
+		elevateSpeed = 0.0f;
+		position[1] = 0.0f;
+	}
+	else elevateSpeed -= 0.03f;
 }
 
 SnowBall* Player::throwBall(GLfloat speed, GLfloat lifespan, GLfloat directionX, GLfloat directionY, GLfloat directionZ) {

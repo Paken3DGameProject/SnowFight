@@ -35,9 +35,10 @@ Window::operator bool() {
 	//正規化デバイス座標系上の座標に変換
 	cursor[0] = static_cast<GLfloat>(x) * 2.0f / size[0] - 1.0f;
 	cursor[1] = 1.0f - static_cast<GLfloat>(y) * 2.0f / size[1];
+	cursor[1] *= 0.785f;
 
 	//適当な数をかけて回す
-	player->rotate(-cursor[0] * 5.0f, cursor[1] * 5.0f);
+	player->rotate(-cursor[0] * 5.0f, cursor[1]);
 
 	//プレイヤーの移動
 	GLfloat direction[2] = {0, 0};                                             //動く方向のベクトル
@@ -65,8 +66,9 @@ Window::operator bool() {
 		direction[1] *= mag;
 	}
 
-	//動かす
+	//プレイヤーの位置の更新
 	player->move(direction[0], 0, direction[1]);
+	player->elevate();
 
 	return !glfwWindowShouldClose(window) && !glfwGetKey(window, GLFW_KEY_ESCAPE); //ウィンドウを閉じる必要がなく、Escapeが押されてなければtrueを返す
 }
