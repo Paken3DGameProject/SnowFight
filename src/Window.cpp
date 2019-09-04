@@ -38,7 +38,7 @@ Window::operator bool() {
     cursor[1] = 1.0f - static_cast<GLfloat>(y) * 2.0f / size[1];
 
     //適当な数をかけて回す
-    player->rotate(-cursor[0] * 3.5f, cursor[1] * 3.5f);
+    player->rotate(-cursor[0] * 5.0f, cursor[1] * 5.0f);
 
     //プレイヤーの移動
     GLfloat direction[2] = {};//動く方向のベクトル
