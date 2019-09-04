@@ -11,6 +11,8 @@ class Player {
     //â‘Î’l‚ª10‚É‚È‚é‚æ‚¤‚É‚µ‚Ä‚¨‚­
     GLfloat direction[3];
 
+	GLfloat ySpeed;
+
     int snowballs; //‚¿á‹Ê‚Ì”
 
     int life; //ƒ‰ƒCƒt
@@ -38,6 +40,8 @@ public:
 	void move(GLfloat x, GLfloat y, GLfloat z);
 
 	void rotate(GLfloat x, GLfloat y);
+
+	void jump(GLfloat speed = 1.2f);
 
 	SnowBall* throwBall(GLfloat speed, GLfloat lifespan, GLfloat directionX = 100.0f, GLfloat directionY = 100.0f, GLfloat directionZ = 100.0f);
 };

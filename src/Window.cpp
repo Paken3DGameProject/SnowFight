@@ -41,32 +41,35 @@ Window::operator bool() {
     player->rotate(-cursor[0] * 5.0f, cursor[1] * 5.0f);
 
     //プレイヤーの移動
-    GLfloat direction[2] = {};//動く方向のベクトル
+    GLfloat direction[2] = {0, 0};//動く方向のベクトル
     if (glfwGetKey(window, GLFW_KEY_A)) { //左側を向いたベクトル(x,z)を求める
-        direction[0] = *(player->getDirection() + 2);
-        direction[1] = -*(player->getDirection());
+        direction[0] += *(player->getDirection() + 2);
+        direction[1] += -*(player->getDirection());
     }
     if (glfwGetKey(window, GLFW_KEY_W)) { //同様
-        direction[0] = *(player->getDirection());
-        direction[1] = *(player->getDirection() + 2);
+        direction[0] += *(player->getDirection());
+        direction[1] += *(player->getDirection() + 2);
     }
     if (glfwGetKey(window, GLFW_KEY_D)) { //同様
-        direction[0] = -*(player->getDirection() + 2);
-        direction[1] = *(player->getDirection());
+        direction[0] += -*(player->getDirection() + 2);
+        direction[1] += *(player->getDirection());
     }
     if (glfwGetKey(window, GLFW_KEY_S)) { //同様
-        direction[0] = -*(player->getDirection());
-        direction[1] = -*(player->getDirection() + 2);
+        direction[0] += -*(player->getDirection());
+        direction[1] += -*(player->getDirection() + 2);
     }
-    if (direction[0] || direction[1]) {
-        //ベクトルの長さを適当に直す
-        GLfloat mag(0.2f / static_cast<GLfloat>(hypot(direction[0], direction[1])));
-        direction[0] *= mag;
-        direction[1] *= mag;
+	if (glfwGetKey(window, GLFW_KEY_SPACE)) player->jump();
+	if (direction[0] || direction[1]) {
+		//ベクトルの長さを適当に直す
+		GLfloat mag(0.2f / static_cast<GLfloat>(hypot(direction[0], direction[1])));
+		direction[0] *= mag;
+		direction[1] *= mag;
 
-        //動かす
-        player->move(direction[0], 0, direction[1]);
-    }
+		//動かす
+		player->move(direction[0], 0, direction[1]);
+	}
+	else
+		player->move(0, 0, 0);
 
     return !glfwWindowShouldClose(window) &&
            !glfwGetKey(window, GLFW_KEY_ESCAPE); //ウィンドウを閉じる必要がなく、Escapeが押されてなければtrueを返す
