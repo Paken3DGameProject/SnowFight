@@ -1,5 +1,4 @@
 #include "Window.hpp"
-
 Window::Window(int width, int height, const char *title) : window(glfwCreateWindow(width, height, title, NULL, NULL)),
                                                            scale(100.0f), keyStatus(GLFW_RELEASE), player(NULL) {
     if (window == NULL) { // windowの作成に失敗
@@ -39,10 +38,10 @@ Window::operator bool() {
     cursor[1] = 1.0f - static_cast<GLfloat>(y) * 2.0f / size[1];
 
     //適当な数をかけて回す
-    player->rotate(-cursor[0] * 2.5f, cursor[1] * 2.5f);
+    player->rotate(-cursor[0] * 5.0f, cursor[1] * 5.0f);
 
     //プレイヤーの移動
-    GLfloat direction[2] = {};            //動く方向のベクトル
+    GLfloat direction[2] = {};//動く方向のベクトル
     if (glfwGetKey(window, GLFW_KEY_A)) { //左側を向いたベクトル(x,z)を求める
         direction[0] = *(player->getDirection() + 2);
         direction[1] = -*(player->getDirection());

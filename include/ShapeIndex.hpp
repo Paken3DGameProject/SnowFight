@@ -5,17 +5,20 @@
 class ShapeIndex : public Shape {
 protected:
     //’¸“_‚Ì”
-    const GLsizei index_count;
+    const GLsizei indexCount;
 
 public:
     //ƒRƒ“ƒXƒgƒ‰ƒNƒ^
     //(ŸŒ³,’¸“_”,’¸“_‚ğŠi”[‚µ‚½”z—ñ,index‚Ì”,index‚ğŠi”[‚µ‚½”z—ñ)
-    ShapeIndex(GLint size, GLsizei vertex_count, const Object::Vertex *vertex, GLsizei index_count, const GLuint *index)
-            : Shape(size, vertex_count, vertex, index_count, index), index_count(index_count) {}
+    ShapeIndex(GLint size, GLsizei vertexCount, const Object::Vertex *vertex, GLsizei indexCount, const GLuint *index)
+		:Shape(size, vertexCount, vertex, indexCount, index), indexCount(indexCount) {}
+
+	ShapeIndex(GLint size, GLsizei textureVertexCount, const Object::TextureVertex* textureVertex, GLsizei indexCount, const GLuint* index)
+		:Shape(size, textureVertexCount, textureVertex, indexCount, index), indexCount(indexCount) {}
 
     //•`‰æ‚ÌÀs
     virtual void execute(GLenum mode) const {
         //ü•ªŒQ‚Å•`‰æ‚·‚é
-        glDrawElements(mode, index_count, GL_UNSIGNED_INT, 0);
+        glDrawElements(mode, indexCount, GL_UNSIGNED_INT, 0);
     }
 };

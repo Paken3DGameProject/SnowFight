@@ -9,7 +9,7 @@ Matrix::Matrix(Player player) {
                       *(player.getPosition() + 1) + *(player.getDirection() + 1),
                       *(player.getPosition() + 2) + *(player.getDirection() + 2)};
 
-    *this = lookat(*player.getPosition(), *(player.getPosition() + 1) + 2.0f, *(player.getPosition() + 2),
+    *this = lookat(*player.getPosition(), *(player.getPosition() + 1) + 1.5f, *(player.getPosition() + 2),
                    *player.getPosition() + *player.getDirection(),
                    *(player.getPosition() + 1) + *(player.getDirection() + 1),
                    *(player.getPosition() + 2) + *(player.getDirection() + 2), 0.0f, 1.0f, 0.0f);

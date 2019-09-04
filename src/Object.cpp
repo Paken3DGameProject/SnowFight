@@ -76,3 +76,7 @@ Object::~Object() {
     // indexの頂点バッファオブジェクトを削除
     glDeleteBuffers(1, &ibo);
 }
+
+void Object::bind() const {
+	glBindVertexArray(vao);
+}

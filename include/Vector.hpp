@@ -4,8 +4,9 @@
 
 class Vector {
 	GLfloat element[4];
+	GLfloat length;
 
-  public:
+public:
 	//コンストラクタ 変換したいものを渡す
 	Vector(GLfloat x, GLfloat y, GLfloat z, GLfloat w = 1.0f);
 

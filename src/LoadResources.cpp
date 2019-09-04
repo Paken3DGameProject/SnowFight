@@ -1,10 +1,10 @@
-//シェーダプログラムをロードして使う
+//リソースをロードして使う
 #include "LoadResources.hpp"
 
 GLboolean printShaderInfoLog(GLuint shader, const char *str) {
     GLint status;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &status); //シェーダオブジェクトの情報を取得
-    if (status == GL_FALSE) std::cerr << "Compile Error in" << str << std::endl;
+    if (status == GL_FALSE) std::cerr << "Compile Error in " << str << std::endl;
 
     GLsizei bufSize;
     glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &bufSize); //コンパイルログの長さを取得
