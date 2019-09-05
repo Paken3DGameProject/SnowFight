@@ -109,16 +109,16 @@ public:
         position[0] += x;
         position[1] += y;
         position[2] += z;
-		if (position[1] < 0.175f) {
+		if (position[1] < 0.35f) {
 			waitRemove = true;
 			return;
 		}
-		if (position[1] < 8.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
-			if (position[0] < -31.825f || 31.825f < position[0]) {
+		if (position[1] < 10.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
+			if (position[0] < -31.65f || 31.65f < position[0]) {
 				waitRemove = true;
 				return;
 			}
-			if (position[2] < -31.825f || 31.825f < position[2]) {
+			if (position[2] < -31.65f || 31.65f < position[2]) {
 				waitRemove = true;
 				return;
 			}

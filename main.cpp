@@ -118,6 +118,8 @@ int main() {
 		return 1;
 	}
 
+	glfwSetTime(0.0);
+
 	//GLFWのバージョンを選択(Version 3.3 Core Profile)
 	//glfwDefaultWindowHints()でデフォルトに戻せるらしい
 	//GPUが対応していない場合は後のglfwCreateWindow()で失敗する
@@ -125,8 +127,6 @@ int main() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-
-	glfwSetTime(0.0);
 
 	Window window;
 
@@ -219,5 +219,4 @@ int main() {
 
 		window.swapBuffers();
 	}
-	std::cout << cnt / glfwGetTime() << std::endl;
 }
