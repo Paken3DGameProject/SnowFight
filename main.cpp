@@ -167,7 +167,7 @@ int main() {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//カラーバッファをglClearColorで指定した色で塗りつぶす
 
 		if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE) {
-			SnowBall* ball = player.throwBall(0.3f, 5.5f);
+			SnowBall* ball = player.throwBall(1.0f, 5.5f);
 			if (ball != nullptr)snowBallsVec.push_back(*ball);
 		}
 
