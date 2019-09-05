@@ -13,6 +13,8 @@ class SnowBall {
 
     GLfloat speed; //スピード
 
+	GLfloat elevateSpeed;
+
 	const double throughTime;//投げられた時間
 
 	const double lifeSpan;//寿命（時間）
@@ -32,7 +34,7 @@ public:
 	SnowBall(GLfloat position_x, GLfloat position_y, GLfloat position_z,
 		GLfloat direction_x, GLfloat direction_y, GLfloat direction_z,
 		GLfloat speed, unsigned int from_id, GLfloat lifespan)
-		: speed(speed), from_id(from_id), throughTime(glfwGetTime()), lifeSpan(lifespan), waitRemove(false) {
+		: elevateSpeed(0.0f), speed(speed), from_id(from_id), throughTime(glfwGetTime()), lifeSpan(lifespan), waitRemove(false) {
 		position[0] = position_x;
 		position[1] = position_y;
 		position[2] = position_z;
@@ -62,7 +64,7 @@ public:
 		update();
 	}
 
-	SnowBall(const SnowBall& snowball) : speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan), waitRemove(false) {
+	SnowBall(const SnowBall& snowball) : elevateSpeed(snowball.elevateSpeed), speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan), waitRemove(false) {
 		position[0] = snowball.position[0];
 		position[1] = snowball.position[1];
 		position[2] = snowball.position[2];
@@ -80,7 +82,7 @@ public:
 
         sphereVertex.clear();
         GLfloat mag = speed / hypot(hypot(direction[0], direction[1]), direction[2]);
-        move(direction[0] * mag, direction[1] * mag, direction[2] * mag);
+        move(direction[0] * mag, direction[1] * mag + elevateSpeed, direction[2] * mag);
 
         for (int i = 0; i <= stacks; i++) {
             const float t(static_cast<float>(i) / static_cast<float>(stacks));
@@ -94,6 +96,7 @@ public:
             }
         }
 
+		elevateSpeed -= 0.03f;
         shape = std::make_shared<ShapeIndex>(3, static_cast<GLsizei>(sphereVertex.size()), sphereVertex.data(),
                                              static_cast<GLsizei>(sphereIndex.size()), sphereIndex.data());
     }
@@ -111,15 +114,13 @@ public:
 			return;
 		}
 		if (position[1] < 8.0f) {//壁の高さをより下で
-			if (position[0] < -31.825f || 31.825f < position[0]) {//x方向の壁に当たる
-				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
-				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
-				direction[0] = -direction[0];//跳ね返り
+			if (position[0] < -31.825f || 31.825f < position[0]) {
+				waitRemove = true;
+				return;
 			}
 			if (position[2] < -31.825f || 31.825f < position[2]) {
-				position[2] = std::max(static_cast<GLfloat>(-31.825f), position[2]);
-				position[2] = std::min(static_cast<GLfloat>(31.825f), position[2]);
-				direction[2] = -direction[2];
+				waitRemove = true;
+				return;
 			}
 		}
     }
