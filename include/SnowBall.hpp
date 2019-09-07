@@ -110,7 +110,7 @@ public:
 			waitRemove = true;
 			return;
 		}
-		if (position[1] < 8.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
+		if (position[1] < 10.0f) {//•Ç‚Ì‚‚³‚ð‚æ‚è‰º‚Å
 			if (position[0] < -31.825f || 31.825f < position[0]) {//x•ûŒü‚Ì•Ç‚É“–‚½‚é
 				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
 				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
