@@ -160,10 +160,8 @@ int main() {
 
 	Player player(1, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, -10.0f, 10, 3);
 	window.setPlayer(&player);
-	int cnt = 0;
 
 	while (window) {//描画更新
-		cnt++;
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);//カラーバッファをglClearColorで指定した色で塗りつぶす
 
 		if (window.getMouseButton(GLFW_MOUSE_BUTTON_1) != GLFW_RELEASE) {
@@ -219,5 +217,4 @@ int main() {
 
 		window.swapBuffers();
 	}
-	std::cout << cnt / glfwGetTime() << std::endl;
 }
