@@ -5,21 +5,23 @@
 #include "Shape.hpp"
 #include "ShapeIndex.hpp"
 
-//á‹Ê‚Ìî•ñ‚ğŠÇ—‚·‚é
+//é›ªç‰ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹
 class SnowBall {
-    GLfloat position[3]{}; //ˆÊ’u
+    GLfloat position[3]{}; //ä½ç½®
 
-    GLfloat direction[3]{}; //Œü‚«
+    GLfloat direction[3]{}; //å‘ã
 
-    GLfloat speed; //ƒXƒs[ƒh
+    GLfloat speed; //ã‚¹ãƒ”ãƒ¼ãƒ‰
 
-	const double throughTime;//“Š‚°‚ç‚ê‚½ŠÔ
+	GLfloat elevateSpeed;
 
-	const double lifeSpan;//õ–½iŠÔj
+	const double throughTime;//æŠ•ã’ã‚‰ã‚ŒãŸæ™‚é–“
 
-    const unsigned int from_id; //‚Ç‚ÌƒvƒŒƒCƒ„[‚©‚ç“Š‚°‚ç‚ê‚½‚©
+	const double lifeSpan;//å¯¿å‘½ï¼ˆæ™‚é–“ï¼‰
 
-	bool waitRemove;//Á‹‘Ò‚¿‚©‚Ç‚¤‚©
+    const unsigned int from_id; //ã©ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰æŠ•ã’ã‚‰ã‚ŒãŸã‹
+
+	bool waitRemove;//æ¶ˆå»å¾…ã¡ã‹ã©ã†ã‹
 
     const int slices = 64, stacks = 32;
 
@@ -32,7 +34,7 @@ public:
 	SnowBall(GLfloat position_x, GLfloat position_y, GLfloat position_z,
 		GLfloat direction_x, GLfloat direction_y, GLfloat direction_z,
 		GLfloat speed, unsigned int from_id, GLfloat lifespan)
-		: speed(speed), from_id(from_id), throughTime(glfwGetTime()), lifeSpan(lifespan), waitRemove(false) {
+		: elevateSpeed(0.0f), speed(speed), from_id(from_id), throughTime(glfwGetTime()), lifeSpan(lifespan), waitRemove(false) {
 		position[0] = position_x;
 		position[1] = position_y;
 		position[2] = position_z;
@@ -40,7 +42,7 @@ public:
 		direction[1] = direction_y;
 		direction[2] = direction_z;
 
-		// Index‚ğì‚é
+		// Indexã‚’ä½œã‚‹
 		for (int i = 0; i < stacks; i++) {
 			const int k((slices + 1) * i);
 			for (int j = 0; j < slices; j++) {
@@ -62,7 +64,7 @@ public:
 		update();
 	}
 
-	SnowBall(const SnowBall& snowball) : speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan), waitRemove(false) {
+	SnowBall(const SnowBall& snowball) : elevateSpeed(snowball.elevateSpeed), speed(snowball.speed), from_id(snowball.from_id), throughTime(snowball.throughTime), lifeSpan(snowball.lifeSpan), waitRemove(false) {
 		position[0] = snowball.position[0];
 		position[1] = snowball.position[1];
 		position[2] = snowball.position[2];
@@ -74,13 +76,13 @@ public:
 		shape = snowball.shape;
 	}
 
-    void update() {//õ–½”»’è‚Æî•ñXV
+    void update() {//å¯¿å‘½åˆ¤å®šã¨æƒ…å ±æ›´æ–°
 
 		if (throughTime + lifeSpan < glfwGetTime())waitRemove = true;
 
         sphereVertex.clear();
         GLfloat mag = speed / hypot(hypot(direction[0], direction[1]), direction[2]);
-        move(direction[0] * mag, direction[1] * mag, direction[2] * mag);
+        move(direction[0] * mag, direction[1] * mag + elevateSpeed, direction[2] * mag);
 
         for (int i = 0; i <= stacks; i++) {
             const float t(static_cast<float>(i) / static_cast<float>(stacks));
@@ -94,6 +96,7 @@ public:
             }
         }
 
+		elevateSpeed -= 0.03f;
         shape = std::make_shared<ShapeIndex>(3, static_cast<GLsizei>(sphereVertex.size()), sphereVertex.data(),
                                              static_cast<GLsizei>(sphereIndex.size()), sphereIndex.data());
     }
@@ -106,20 +109,19 @@ public:
         position[0] += x;
         position[1] += y;
         position[2] += z;
-		if (position[1] < 0.175f) {
+		if (position[1] < 0.350f) {
 			waitRemove = true;
 			return;
 		}
-		if (position[1] < 10.0f) {//•Ç‚Ì‚‚³‚ğ‚æ‚è‰º‚Å
-			if (position[0] < -31.825f || 31.825f < position[0]) {//x•ûŒü‚Ì•Ç‚É“–‚½‚é
+		if (position[1] < 10.0f) {//å£ã®é«˜ã•ã‚’ã‚ˆã‚Šä¸‹ã§
+			if (position[0] < -31.825f || 31.825f < position[0]) {//xæ–¹å‘ã®å£ã«å½“ãŸã‚‹
 				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
 				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
-				direction[0] = -direction[0];//’µ‚Ë•Ô‚è
+				direction[0] = -direction[0];//è·³ã­è¿”ã‚Š
 			}
 			if (position[2] < -31.825f || 31.825f < position[2]) {
-				position[2] = std::max(static_cast<GLfloat>(-31.825f), position[2]);
-				position[2] = std::min(static_cast<GLfloat>(31.825f), position[2]);
-				direction[2] = -direction[2];
+				waitRemove = true;
+				return;
 			}
 		}
     }
