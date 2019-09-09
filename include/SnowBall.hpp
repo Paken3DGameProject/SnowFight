@@ -5,23 +5,23 @@
 #include "Shape.hpp"
 #include "ShapeIndex.hpp"
 
-//á‹Ê‚Ìî•ñ‚ğŠÇ—‚·‚é
+//é›ªç‰ã®æƒ…å ±ã‚’ç®¡ç†ã™ã‚‹
 class SnowBall {
-    GLfloat position[3]{}; //ˆÊ’u
+    GLfloat position[3]{}; //ä½ç½®
 
-    GLfloat direction[3]{}; //Œü‚«
+    GLfloat direction[3]{}; //å‘ã
 
-    GLfloat speed; //ƒXƒs[ƒh
+    GLfloat speed; //ã‚¹ãƒ”ãƒ¼ãƒ‰
 
 	GLfloat elevateSpeed;
 
-	const double throughTime;//“Š‚°‚ç‚ê‚½ŠÔ
+	const double throughTime;//æŠ•ã’ã‚‰ã‚ŒãŸæ™‚é–“
 
-	const double lifeSpan;//õ–½iŠÔj
+	const double lifeSpan;//å¯¿å‘½ï¼ˆæ™‚é–“ï¼‰
 
-    const unsigned int from_id; //‚Ç‚ÌƒvƒŒƒCƒ„[‚©‚ç“Š‚°‚ç‚ê‚½‚©
+    const unsigned int from_id; //ã©ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰æŠ•ã’ã‚‰ã‚ŒãŸã‹
 
-	bool waitRemove;//Á‹‘Ò‚¿‚©‚Ç‚¤‚©
+	bool waitRemove;//æ¶ˆå»å¾…ã¡ã‹ã©ã†ã‹
 
     const int slices = 64, stacks = 32;
 
@@ -42,7 +42,7 @@ public:
 		direction[1] = direction_y;
 		direction[2] = direction_z;
 
-		// Index‚ğì‚é
+		// Indexã‚’ä½œã‚‹
 		for (int i = 0; i < stacks; i++) {
 			const int k((slices + 1) * i);
 			for (int j = 0; j < slices; j++) {
@@ -76,7 +76,7 @@ public:
 		shape = snowball.shape;
 	}
 
-    void update() {//õ–½”»’è‚Æî•ñXV
+    void update() {//å¯¿å‘½åˆ¤å®šã¨æƒ…å ±æ›´æ–°
 
 		if (throughTime + lifeSpan < glfwGetTime())waitRemove = true;
 
@@ -113,10 +113,11 @@ public:
 			waitRemove = true;
 			return;
 		}
-		if (position[1] < 10.0f) {//•Ç‚Ì‚‚³‚ğ‚æ‚è‰º‚Å
-			if (position[0] < -31.825f || 31.825f < position[0]) {
-				waitRemove = true;
-				return;
+		if (position[1] < 10.0f) {//å£ã®é«˜ã•ã‚’ã‚ˆã‚Šä¸‹ã§
+			if (position[0] < -31.825f || 31.825f < position[0]) {//xæ–¹å‘ã®å£ã«å½“ãŸã‚‹
+				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
+				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
+				direction[0] = -direction[0];//è·³ã­è¿”ã‚Š
 			}
 			if (position[2] < -31.825f || 31.825f < position[2]) {
 				waitRemove = true;
