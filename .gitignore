@@ -1,0 +1,16 @@
+# VS Item
+
+.vscode/
+.vs/
+
+# Build Item
+
+*.dll
+*.exe
+*.lib
+
+build/
+workspace/
+bin/
+obj/
+CMakeSettings.json
