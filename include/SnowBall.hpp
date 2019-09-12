@@ -115,11 +115,10 @@ public:
 		}
 		if (position[1] < 10.0f) {//壁の高さをより下で
 			if (position[0] < -31.825f || 31.825f < position[0]) {//x方向の壁に当たる
-				position[0] = std::max(static_cast<GLfloat>(-31.825f), position[0]);
-				position[0] = std::min(static_cast<GLfloat>(31.825f), position[0]);
-				direction[0] = -direction[0];//跳ね返り
+                waitRemove = true;
+                return;
 			}
-			if (position[2] < -31.825f || 31.825f < position[2]) {
+			if (position[2] < -31.825f || 31.825f < position[2]) {//y方向の壁に当たる
 				waitRemove = true;
 				return;
 			}
